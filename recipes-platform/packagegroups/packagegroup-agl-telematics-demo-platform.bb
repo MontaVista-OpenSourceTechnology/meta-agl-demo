@@ -28,7 +28,7 @@ RDEPENDS_${PN}_append = " \
     sw-gpsd-udev-conf \
     usb-can-udev-conf \
     simple-can-simulator \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'agl-devel', 'ofono-tests gps-utils' , '', d)} \
+    ${@bb.utils.contains('AGL_FEATURES', 'agl-devel', 'ofono-tests gps-utils' , '', d)} \
     ${AGL_APPS} \
     ${AGL_APIS} \
 "

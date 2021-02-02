@@ -33,7 +33,7 @@ AGL_APPS = " \
     radio \
     settings \
     messaging \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'agl-devel', 'taskmanager' , '', d)} \
+    ${@bb.utils.contains('AGL_FEATURES', 'agl-devel', 'taskmanager' , '', d)} \
     ${@bb.utils.contains('AGL_FEATURES', 'waltham-remoting', 'waltham waltham-transmitter-plugin' , '', d)} \
     virtual/mixer \
     virtual/qtwayland-config \
@@ -75,7 +75,7 @@ RDEPENDS_${PN}_append = " \
     weston-ini-conf \
     qtquickcontrols2-agl \
     qtquickcontrols2-agl-style \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'agl-devel', 'unzip' , '', d)} \
+    ${@bb.utils.contains('AGL_FEATURES', 'agl-devel', 'unzip' , '', d)} \
     ${AGL_APPS} \
     ${QTAGLEXTRAS} \
     ${CLUSTER_SUPPORT} \
