@@ -7,8 +7,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 PV      = "1.0+git${SRCPV}"
 S       = "${WORKDIR}/git"
 
-SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/html5-homescreen;protocol=https;branch=${AGL_BRANCH}"
-SRCREV = "${AGL_APP_REVISION}"
+SRC_URI = "git://github.com/rogerzanoni/html5-homescreen.git;protocol=https;branch=next"
+SRCREV = "${AUTOREV}"
 
 DEPENDS = "nodejs-native"
 
