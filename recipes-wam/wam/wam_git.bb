@@ -30,7 +30,6 @@ SRC_URI = "\
     file://WebAppMgr.env \
     file://wam-user-setup.sh \
     file://wam-user-setup@.service \
-    file://trunc-webapp-roles.patch \
 "
 S = "${WORKDIR}/git"
 SRCREV = "${AUTOREV}"
