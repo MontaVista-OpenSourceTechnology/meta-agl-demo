@@ -28,12 +28,14 @@ SRC_URI:append = " \
 	file://0014-psplash-drm.c-Implement-double-buffering.patch \
 	file://0015-drm-Fix-incorrect-drawing-with-portrait-orientation.patch \
 	file://psplash-wait.conf \
+	file://0016-Imprement-drm-lease-support.patch \
 	"
 
 # Update licesnse checksum as it's changed with above patches
 LIC_FILES_CHKSUM = "file://psplash.h;beginline=1;endline=8;md5=db1ed16abf4be6de3d79201093ac4f07"
 
 PACKAGECONFIG[drm] = "--enable-drm,,libdrm"
+PACKAGECONFIG[drm-lease] = "--enable-drm-lease,,drm-lease-manager"
 
 SPLASH_IMAGES = "file://psplash-poky-img.h;outsuffix=default"
 
@@ -43,6 +45,11 @@ do_configure:append () {
 
 PSPLASH_ARGS ?= ""
 PSPLASH_ARGS += "${@bb.utils.contains('PACKAGECONFIG', 'drm', '--drm', '', d)}"
+
+PSPLASH_DRM_LEASE_ARGS ??= "--drm-lease lease0"
+PSPLASH_ARGS += "${@bb.utils.contains('PACKAGECONFIG', 'drm-lease', '${PSPLASH_DRM_LEASE_ARGS}', '', d)}"
+
+RDEPENDS:${PN} += "${@bb.utils.contains('PACKAGECONFIG', 'drm-lease', 'drm-lease-manager', '', d)}"
 
 # drm device should be released by psplash before start of agl-compositor.
 # This is basically satisfied without any care, but sometimes psplash lives
