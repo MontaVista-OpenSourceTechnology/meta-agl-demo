@@ -104,3 +104,9 @@ dependencies:
   - URI: https://gerrit.automotivelinux.org/gerrit/gitweb?p=AGL/meta-agl.git
   - Branch: "master"
 
+
+# to make yocto-check-layer happy ... 
+maintainer: a@b.com    # semi-useful imho but yes
+patch: a@b.com         # semi-useful imho but yes
+
+
