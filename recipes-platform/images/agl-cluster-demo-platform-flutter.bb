@@ -20,8 +20,10 @@ IMAGE_KUKSA_PACKAGES = " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'agl-devel', 'kuksa-databroker-cli' , '', d)} \
 "
 
+
 # generic
 IMAGE_INSTALL += "\
+    ${@bb.utils.contains("AGL_FEATURES", "agl-demo-preload", "psplash-inverted-config", "", d)} \
     ${@bb.utils.contains("AGL_FEATURES", "agl-demo-preload", "weston-ini-conf-landscape-inverted", "weston-ini-conf-landscape", d)} \
     \
     packagegroup-agl-networking \
