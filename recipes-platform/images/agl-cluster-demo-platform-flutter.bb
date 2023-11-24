@@ -29,6 +29,7 @@ IMAGE_INSTALL += "\
     packagegroup-agl-networking \
     cluster-receiver \
     \
+    kuksa-certificates-agl-ca \
     ${@bb.utils.contains("AGL_FEATURES", "agl-demo-preload", "", "${IMAGE_KUKSA_PACKAGES}", d)} \
     simple-can-simulator \
     "
