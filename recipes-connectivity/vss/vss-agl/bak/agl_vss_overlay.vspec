@@ -22,45 +22,6 @@ Vehicle.Powertrain.CombustionEngine.Speed:
 
 # DBC mappings for other signals for V2C demo
 
-Vehicle.Body.Lights.Hazard.IsSignaling:
-  datatype: boolean
-  type: actuator
-  dbc2vss:
-    signal: PT_HazardOn
-    on_change: true
-    transform:
-      mapping:
-        - from: 0
-          to: false
-        - from: 1
-          to: true
-
-Vehicle.Body.Lights.DirectionIndicator.Left.IsSignaling:
-  datatype: boolean
-  type: actuator
-  dbc2vss:
-    signal: PT_LeftTurnOn
-    on_change: true
-    transform:
-      mapping:
-        - from: 0
-          to: false
-        - from: 1
-          to: true
-
-Vehicle.Body.Lights.DirectionIndicator.Right.IsSignaling:
-  datatype: boolean
-  type: actuator
-  dbc2vss:
-    signal: PT_RightTurnOn
-    on_change: true
-    transform:
-      mapping:
-        - from: 0
-          to: false
-        - from: 1
-          to: true
-
 Vehicle.OBD.ThrottlePosition:
   datatype: float
   type: sensor
@@ -76,8 +37,12 @@ Vehicle.Chassis.SteeringWheel.Angle:
   dbc2vss:
     signal: SteeringPosition
     interval_ms: 100
+    transform:
+      math: "x * 0.0439453125 - 90"
   vss2dbc:
     signal: SteeringPosition
+    transform:
+      math: "(x + 90) / 0.0439453125"
 
 Vehicle.Chassis.Brake.PedalPosition:
   datatype: uint8

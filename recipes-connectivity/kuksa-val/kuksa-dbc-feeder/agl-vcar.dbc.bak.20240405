@@ -10,15 +10,10 @@ BO_ 985 Vehicle_Status_2: 8 Vector_XXX
   SG_ PT_EngineSpeed : 23|16@0+ (0.25,0) [0|0] "" Vector_XXX
   SG_ PT_FuelLevelLow : 55|1@1+ (1,0) [0|1] "" Vector_XXX
 
-BO_ 986 Vehicle_Status_3: 8 Vector_XXX
-  SG_ PT_HazardOn : 0|1@1+ (1,0) [0|1] "" Vector_XXX
-  SG_ PT_LeftTurnOn : 1|1@1+ (1,0) [0|1] "" Vector_XXX
-  SG_ PT_RightTurnOn : 2|1@1+ (1,0) [0|1] "" Vector_XXX
-
 BO_ 48 HVAC_Control_1: 8 Vector_XXX
   SG_ PT_TempLeft : 7|8@0+ (0.4166666667,0) [0|100] "C" Vector_XXX
   SG_ PT_TempRight : 15|8@0+ (0.4166666667,0) [0|100] "C" Vector_XXX
-  SG_ PT_FanSpeed : 39|8@0+ (0.392157,0) [0|100] "%" Vector_XXX
+  SG_ PT_FanSpeed : 31|8@0+ (0.392157,0) [0|100] "%" Vector_XXX
 
 BO_ 401 Engine: 8 Vector__XXX
  SG_ ThrottlePosition : 63|8@0+ (0.392157,0) [0|100.000035] "%" Vector__XXX

@@ -8,9 +8,11 @@ require agl-demo-features.inc
 IMAGE_FEATURES += "splash package-management ssh-server-openssh"
 
 # If building with "agl-kvm-host-kuksa", the databroker and likely
-# some clients run on the host
+# some clients run on the host, except when building for the
+# gateway demo, where the databroker runs on the gateway.
 IMAGE_FEATURES += " \
-    ${@bb.utils.contains("AGL_FEATURES", "agl-kvm-host-kuksa", "kuksa-val-databroker kuksa-val-databroker-client", "", d)} \
+    ${@bb.utils.contains_any("AGL_FEATURES", "agl-kvm-host-kuksa agl-demo-gateway-preload", "kuksa-val-databroker-client", "", d)} \
+    ${@bb.utils.contains("AGL_FEATURES", "agl-kvm-host-kuksa", "kuksa-val-databroker", "", d)} \
     ${@bb.utils.contains("DISTRO_FEATURES", "agl-devel", "can-test-tools" , "", d)} \
 "
 
@@ -39,12 +41,12 @@ IMAGE_INSTALL += " \
 # become feasible to use.
 HOST_AUDIO_INSTALL = " \
     packagegroup-agl-ivi-services-platform \
-    agl-service-radio-conf-kvm-demo \
     packagegroup-pipewire \
     wireplumber-config-agl \
     wireplumber-policy-config-agl \
     mpd \
     udisks2 \
+    agl-service-radio-conf-kvm-demo \
     ${@bb.utils.contains("DISTRO_FEATURES", "agl-devel", "packagegroup-pipewire-tools mpc" , "", d)} \
 "
 

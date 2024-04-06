@@ -4,7 +4,8 @@ Requires=kuksa-databroker.service can-dev-helper.service
 After=kuksa-databroker.service can-dev-helper.service
 
 [Service]
-ExecStart=/usr/bin/dbcfeeder.py
+EnvironmentFile=-/etc/default/kuksa-dbc-feeder
+ExecStart=/usr/bin/dbcfeeder.py $EXTRA_ARGS
 Restart=on-failure
 
 [Install]

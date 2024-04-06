@@ -18,4 +18,5 @@ RDEPENDS:packagegroup-agl-kuksa-val-databroker = "\
 
 RDEPENDS:packagegroup-agl-kuksa-val-databroker-devel = "\
     kuksa-databroker-cli \
+    kuksa-client \
 "

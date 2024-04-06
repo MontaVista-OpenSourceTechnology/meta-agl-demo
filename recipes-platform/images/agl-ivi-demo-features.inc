@@ -4,7 +4,7 @@ FEATURE_PACKAGES_agl-demo-preload = "packagegroup-agl-demo-preload"
 
 FEATURE_PACKAGES_agl-demo-cluster-support = " \
     tbtnavi \
-    ${@bb.utils.contains("AGL_FEATURES", "agl-kvm-host-kuksa", "tbtnavi-conf-kvm-demo", "tbtnavi-conf", d)} \
+    tbtnavi-conf${DEMO_CONF_SUFFIX} \
     ${@bb.utils.contains("AGL_FEATURES", "agl-kvm-host-kuksa", "", "kuksa-databroker-agl-demo-cluster", d)} \
 "
 
@@ -15,5 +15,5 @@ IMAGE_FEATURES += " \
 
 IMAGE_FEATURES += " \
     kuksa-val-databroker-client \
-    ${@bb.utils.contains("AGL_FEATURES", "agl-kvm-host-kuksa", "", "kuksa-val-databroker", d)} \
+    ${@bb.utils.contains_any("AGL_FEATURES", "agl-kvm-host-kuksa agl-demo-gateway-preload", "", "kuksa-val-databroker", d)} \
 "

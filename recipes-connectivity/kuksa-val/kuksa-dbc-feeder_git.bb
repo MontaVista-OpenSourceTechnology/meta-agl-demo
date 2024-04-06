@@ -13,10 +13,13 @@ SRC_URI = "git://github.com/eclipse/kuksa.val.feeders.git;protocol=https;branch=
            file://0001-dbc2val-add-installation-mechanism.patch \
            file://0002-dbc2val-usability-improvements.patch \
            file://0003-dbc2val-fix-token-file-configuration-option.patch \
+           file://0004-Enable-val2dbc-for-sensor-values.patch \
            file://config.ini \
            file://dbc_feeder.token \
            file://agl-vcar.dbc \
+           file://dbc_default_values.json \
            file://kuksa-dbc-feeder.service \
+	   file://kuksa-dbc-feeder.env \
            "
 SRCREV = "5bb52eca8d79f7c05a024f69b1faab81dabacdcd"
 
@@ -36,6 +39,9 @@ do_install:append() {
     # investigation.
     install -m 0600 ${WORKDIR}/dbc_feeder.token ${D}${sysconfdir}/kuksa-dbc-feeder/
     install -m 0644 ${WORKDIR}/agl-vcar.dbc ${D}${sysconfdir}/kuksa-dbc-feeder/
+    install -m 0644 ${WORKDIR}/dbc_default_values.json ${D}${sysconfdir}/kuksa-dbc-feeder/
+    install -d ${D}${sysconfdir}/default
+    install -m 0644 ${WORKDIR}/kuksa-dbc-feeder.env ${D}${sysconfdir}/default/kuksa-dbc-feeder
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -d ${D}${systemd_system_unitdir}
         install -m 0644 ${WORKDIR}/kuksa-dbc-feeder.service ${D}${systemd_system_unitdir}

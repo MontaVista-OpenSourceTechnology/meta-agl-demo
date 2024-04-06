@@ -11,6 +11,7 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/flutter-ics-homescreen;p
   file://flutter-ics-homescreen.service \
   file://ics-homescreen.yaml \
   file://ics-homescreen.yaml.kvm-demo \
+  file://ics-homescreen.yaml.gateway-demo \
   file://ics-homescreen.token \
   file://radio-presets.yaml \
   file://kvm.conf \
@@ -47,6 +48,7 @@ do_install:append() {
     install -d ${D}${sysconfdir}/xdg/AGL/ics-homescreen
     install -m 0644 ${WORKDIR}/ics-homescreen.yaml ${D}${sysconfdir}/xdg/AGL/ics-homescreen.yaml.default
     install -m 0644 ${WORKDIR}/ics-homescreen.yaml.kvm-demo ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${WORKDIR}/ics-homescreen.yaml.gateway-demo ${D}${sysconfdir}/xdg/AGL/
     install -m 0644 ${WORKDIR}/ics-homescreen.token ${D}${sysconfdir}/xdg/AGL/ics-homescreen/
     install -m 0644 ${WORKDIR}/radio-presets.yaml ${D}${sysconfdir}/xdg/AGL/ics-homescreen/
 }
@@ -62,21 +64,39 @@ RDEPENDS:${PN} += " \
     ${@bb.utils.contains('AGL_FEATURES', 'agl-kvm-host-audio', '', 'agl-service-radio mpd', d)} \
 "
 
-PACKAGE_BEFORE_PN += "${PN}-conf ${PN}-conf-kvm-demo"
+PACKAGE_BEFORE_PN += "${PN}-conf ${PN}-conf-kvm ${PN}-conf-kvm-demo ${PN}-conf-gateway-demo"
 
 FILES:${PN}-conf += "${sysconfdir}/xdg/AGL/ics-homescreen.yaml.default"
 RDEPENDS:${PN}-conf = "${PN}"
 RPROVIDES:${PN}-conf = "ics-homescreen.yaml"
-RCONFLICTS:${PN}-conf = "${PN}-conf-kvm-demo"
 ALTERNATIVE:${PN}-conf = "ics-homescreen.yaml"
 ALTERNATIVE_TARGET_${PN}-conf = "${sysconfdir}/xdg/AGL/ics-homescreen.yaml.default"
 
-FILES:${PN}-conf-kvm-demo += " \
-    ${sysconfdir}/xdg/AGL/ics-homescreen.yaml.kvm-demo \
+FILES:${PN}-conf-kvm += " \
     ${systemd_system_unitdir}/flutter-ics-homescreen.service.d/kvm.conf \
 "
-RDEPENDS:${PN}-conf-kvm-demo = "${PN}"
+RDEPENDS:${PN}-conf-kvm = "${PN}"
+
+FILES:${PN}-conf-kvm-demo += " \
+    ${sysconfdir}/xdg/AGL/ics-homescreen.yaml.kvm-demo \
+"
+RDEPENDS:${PN}-conf-kvm-demo = "${PN} ${PN}-conf-kvm"
 RPROVIDES:${PN}-conf-kvm-demo = "ics-homescreen.yaml"
-RCONFLICTS:${PN}-conf-kvm-demo = "${PN}-conf"
 ALTERNATIVE:${PN}-conf-kvm-demo = "ics-homescreen.yaml"
 ALTERNATIVE_TARGET_${PN}-conf-kvm-demo = "${sysconfdir}/xdg/AGL/ics-homescreen.yaml.kvm-demo"
+ALTERNATIVE_PRIORITY_${PN}-conf-kvm-demo = "20"
+
+# FIXME:
+# This configuration is still KVM specific, there needs to
+# be a way to install a configuration for using the gateway
+# setup with a non-KVM image. It may take splitting the
+# databroker configuration out to a separate configuration
+# to simplify things.
+FILES:${PN}-conf-gateway-demo += " \
+    ${sysconfdir}/xdg/AGL/ics-homescreen.yaml.gateway-demo \
+"
+RDEPENDS:${PN}-conf-gateway-demo = "${PN} ${PN}-conf-kvm"
+RPROVIDES:${PN}-conf-gateway-demo = "ics-homescreen.yaml"
+ALTERNATIVE:${PN}-conf-gateway-demo = "ics-homescreen.yaml"
+ALTERNATIVE_TARGET_${PN}-conf-gateway-demo = "${sysconfdir}/xdg/AGL/ics-homescreen.yaml.gateway-demo"
+ALTERNATIVE_PRIORITY_${PN}-conf-gateway-demo = "30"

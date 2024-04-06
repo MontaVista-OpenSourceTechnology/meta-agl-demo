@@ -1,0 +1,41 @@
+#client-id: ?
+#verbose: 2
+kuksa:
+    #hostname: localhost
+    #port: 55555
+    authorization: /etc/agl-vss-proxy/agl-vss-proxy.token
+    use-tls: true
+    ca-certificate: /etc/kuksa-val/CA.pem
+    #tls-server-name:
+mqtt:
+    hostname:
+    port: 1883
+    #keepalive:
+    #username:
+    #password:
+    #client-id: ?
+    #clean-on-disconnect: false
+    #topic: ?
+    qos: 1
+    retain: true
+    use-tls: false
+    #ca-certificate:
+    #verify-server-hostname: true
+    #client-certificate:
+    #client-key:
+signals:
+- signal: Vehicle.OBD.ThrottlePosition
+- signal: Vehicle.Speed
+- signal: Vehicle.Chassis.SteeringWheel.Angle
+- signal: Vehicle.Chassis.Brake.PedalPosition
+#- signal: Vehicle.Chassis.Brake.IsDriverEmergencyBrakingDetected
+- signal: Vehicle.Powertrain.Transmission.CurrentGear
+#- signal: Vehicle.Cabin.Seat.Row1.DriverSide.Airbag.IsDeployed 
+- signal: Vehicle.Acceleration.Lateral
+- signal: Vehicle.Acceleration.Longitudinal
+- signal: Vehicle.Acceleration.Vertical
+- signal: Vehicle.AngularVelocity.Pitch
+- signal: Vehicle.AngularVelocity.Roll
+- signal: Vehicle.AngularVelocity.Yaw
+- signal: Vehicle.CurrentLocation.Latitude
+- signal: Vehicle.CurrentLocation.Longitude
