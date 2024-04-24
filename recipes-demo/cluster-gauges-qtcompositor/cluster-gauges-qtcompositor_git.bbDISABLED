@@ -19,7 +19,7 @@ SRCREV  = "23eaf7da1f7d252aefddf9e41e52c745b7433b50"
 
 S  = "${WORKDIR}/git"
 
-inherit pkgconfig cmake_qt5 systemd
+inherit pkgconfig cmake_qt6 systemd
 
 SYSTEMD_SERVICE:${PN} = "${BPN}.service"
 

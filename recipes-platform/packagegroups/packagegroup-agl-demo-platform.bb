@@ -16,9 +16,11 @@ RDEPENDS:${PN} += "\
 
 RDEPENDS:${PN}:append = " \
     weston-ini-conf-no-activate \
-    homescreen \
-    launcher \
-    qtquickcontrols2-agl \
-    qtquickcontrols2-agl-style \
     psplash-portrait-config \
     "
+
+#    homescreen \
+#    launcher \
+#    qtquickcontrols2-agl \
+#    qtquickcontrols2-agl-style \
+#
