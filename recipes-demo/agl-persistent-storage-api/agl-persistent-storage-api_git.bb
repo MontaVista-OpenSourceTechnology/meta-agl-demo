@@ -42,7 +42,7 @@ do_install:append () {
     mv ${D}/usr/bin/server ${D}/usr/bin/agl-service-persistent-storage
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -d ${D}${systemd_system_unitdir}
-        install -m 0644 ${WORKDIR}/${BPN}.service ${D}${systemd_system_unitdir}
+        install -m 0644 ${UNPACKDIR}/${BPN}.service ${D}${systemd_system_unitdir}
     fi
 }
 
