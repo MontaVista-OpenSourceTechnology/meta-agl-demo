@@ -39,7 +39,7 @@ OE_QMAKE_CXXFLAGS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'agl-devel'
 SYSTEMD_SERVICE:${PN} = "${BPN}.service"
 
 do_install:append() {
-    install -D -m0644 ${WORKDIR}/homescreen.service ${D}${systemd_system_unitdir}/homescreen.service
+    install -D -m0644 ${UNPACKDIR}/homescreen.service ${D}${systemd_system_unitdir}/homescreen.service
 
     # Currently using default global client and CA certificates
     # for KUKSA.val SSL, installing app specific ones would go here.
@@ -49,8 +49,8 @@ do_install:append() {
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/xdg/AGL/homescreen
-    install -m 0644 ${WORKDIR}/homescreen.conf ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/homescreen.token ${D}${sysconfdir}/xdg/AGL/homescreen/
+    install -m 0644 ${UNPACKDIR}/homescreen.conf ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/homescreen.token ${D}${sysconfdir}/xdg/AGL/homescreen/
 }
 
 RDEPENDS:${PN} += " \

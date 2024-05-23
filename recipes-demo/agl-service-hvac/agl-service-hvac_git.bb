@@ -44,13 +44,13 @@ do_install:append() {
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/xdg/AGL/agl-service-hvac
-    install -m 0644 ${WORKDIR}/agl-service-hvac.conf.default ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/agl-service-hvac.conf.gateway-demo ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/agl-service-hvac.token ${D}${sysconfdir}/xdg/AGL/agl-service-hvac/
+    install -m 0644 ${UNPACKDIR}/agl-service-hvac.conf.default ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/agl-service-hvac.conf.gateway-demo ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/agl-service-hvac.token ${D}${sysconfdir}/xdg/AGL/agl-service-hvac/
 
     # Replace the default systemd unit
-    install -m 0644 ${WORKDIR}/agl-service-hvac.service ${D}${systemd_system_unitdir}/
-    install -m 0644 -D ${WORKDIR}/databroker.conf ${D}${systemd_system_unitdir}/agl-service-hvac.d/databroker.conf
+    install -m 0644 ${UNPACKDIR}/agl-service-hvac.service ${D}${systemd_system_unitdir}/
+    install -m 0644 -D ${UNPACKDIR}/databroker.conf ${D}${systemd_system_unitdir}/agl-service-hvac.d/databroker.conf
 }
 
 FILES:${PN} += "${systemd_system_unitdir}"

@@ -39,7 +39,7 @@ do_install:append() {
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/agl-vss-proxy
-    install -m 0644 ${WORKDIR}/agl-vss-proxy.token ${D}${sysconfdir}/agl-vss-proxy/
+    install -m 0644 ${UNPACKDIR}/agl-vss-proxy.token ${D}${sysconfdir}/agl-vss-proxy/
 }
 
 FILES:${PN} += "${systemd_system_unitdir}"

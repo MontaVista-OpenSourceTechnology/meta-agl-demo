@@ -30,10 +30,10 @@ VSPEC_JSON_OPTS = " \
 "
 
 do_compile() {
-    vspec export json ${VSPEC_JSON_OPTS} -l ${WORKDIR}/agl_vss_overlay.vspec --output vss_${PV}-agl.json
-    vspec export json ${VSPEC_JSON_OPTS} -l ${WORKDIR}/agl_vss_overlay.vspec.control-panel --output vss_${PV}-agl-control-panel.json
-    vspec export json ${VSPEC_JSON_OPTS} -l ${WORKDIR}/agl_vss_overlay.vspec.gw-control-panel --output vss_${PV}-agl-gw-control-panel.json
-    vspec export json ${VSPEC_JSON_OPTS} -l ${WORKDIR}/agl_vss_overlay.vspec.gw-hardware --output vss_${PV}-agl-gw-hardware.json
+    vspec export json ${VSPEC_JSON_OPTS} -l ${UNPACKDIR}/agl_vss_overlay.vspec --output vss_${PV}-agl.json
+    vspec export json ${VSPEC_JSON_OPTS} -l ${UNPACKDIR}/agl_vss_overlay.vspec.control-panel --output vss_${PV}-agl-control-panel.json
+    vspec export json ${VSPEC_JSON_OPTS} -l ${UNPACKDIR}/agl_vss_overlay.vspec.gw-control-panel --output vss_${PV}-agl-gw-control-panel.json
+    vspec export json ${VSPEC_JSON_OPTS} -l ${UNPACKDIR}/agl_vss_overlay.vspec.gw-hardware --output vss_${PV}-agl-gw-hardware.json
 }
 
 do_install() {

@@ -34,16 +34,16 @@ CLUSTER_DEMO_VSS_HOSTNAME ??= "192.168.10.2"
 SYSTEMD_SERVICE:${PN} = "${BPN}.service"
 
 do_install:append() {
-    install -D -m 0644 ${WORKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
+    install -D -m 0644 ${UNPACKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
 
     # VIS authorization token file for KUKSA.val should ideally not
     # be readable by other users, but currently that's not doable
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/xdg/AGL/cluster-dashboard
-    install -m 0644 ${WORKDIR}/cluster-dashboard.conf.default ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/cluster-dashboard.conf.demo ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/cluster-dashboard.token ${D}${sysconfdir}/xdg/AGL/cluster-dashboard/
+    install -m 0644 ${UNPACKDIR}/cluster-dashboard.conf.default ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/cluster-dashboard.conf.demo ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/cluster-dashboard.token ${D}${sysconfdir}/xdg/AGL/cluster-dashboard/
 }
 
 ALTERNATIVE_LINK_NAME[cluster-dashboard.conf] = "${sysconfdir}/xdg/AGL/cluster-dashboard.conf"
