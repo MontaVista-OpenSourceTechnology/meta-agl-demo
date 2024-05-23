@@ -32,8 +32,8 @@ SYSTEMD_SERVICE:${PN} = "WebAppMgr.service"
 do_install:append() {
     install -v -d ${D}${sysconfdir}/wam
     install -v -m 644 ${S}/files/launch/security_policy.conf ${D}${sysconfdir}/wam/security_policy.conf
-    install -v -D -m 644 ${WORKDIR}/WebAppMgr.service ${D}${systemd_system_unitdir}/WebAppMgr.service
-    install -v -D -m 755 ${WORKDIR}/WebAppMgrCli ${D}${bindir}/WebAppMgrCli
+    install -v -D -m 644 ${UNPACKDIR}/WebAppMgr.service ${D}${systemd_system_unitdir}/WebAppMgr.service
+    install -v -D -m 755 ${UNPACKDIR}/WebAppMgrCli ${D}${bindir}/WebAppMgrCli
 }
 
 CXXFLAGS:append:agl-devel = " -DAGL_DEVEL"

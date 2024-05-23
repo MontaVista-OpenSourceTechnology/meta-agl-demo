@@ -6,8 +6,10 @@ LICENSE     = "Proprietary"
 
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/Proprietary;md5=0557f9d92cf58f2ccdd50f62f8ac0b28"
 
-SRC_URI = "file://naviconfig.ini \
-          "
+SRC_URI = "file://naviconfig.ini"
+
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 inherit allarch
 
@@ -16,7 +18,7 @@ MAPBOX_ACCESS_TOKEN ?= ""
 do_compile[noexec] = "1"
 
 do_install () {
-    install -D -m 644 ${WORKDIR}/naviconfig.ini ${D}${sysconfdir}/naviconfig.ini
+    install -D -m 644 ${UNPACKDIR}/naviconfig.ini ${D}${sysconfdir}/naviconfig.ini
     if [ -n "${MAPBOX_ACCESS_TOKEN}" ]; then
         sed -i -e 's/MAPBOX_ACCESS_TOKEN/${MAPBOX_ACCESS_TOKEN}/;s/\("enableOSM":\)true/\1false/' \
         ${D}${sysconfdir}/naviconfig.ini

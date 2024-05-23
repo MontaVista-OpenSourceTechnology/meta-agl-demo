@@ -11,6 +11,9 @@ SRC_URI = "file://${BPN}.service \
            file://${BPN}.sh \
           "
 
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
+
 inherit systemd
 
 SYSTEMD_SERVICE:${PN} = "${BPN}.service"
@@ -22,8 +25,8 @@ do_install() {
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -d ${D}${systemd_system_unitdir}
         install -d ${D}${sbindir}
-        install -m 0644 ${WORKDIR}/${BPN}.service ${D}${systemd_system_unitdir}
-        install -m 0755 ${WORKDIR}/${BPN}.sh ${D}${sbindir}
+        install -m 0644 ${UNPACKDIR}/${BPN}.service ${D}${systemd_system_unitdir}
+        install -m 0755 ${UNPACKDIR}/${BPN}.sh ${D}${sbindir}
     fi
 }
 

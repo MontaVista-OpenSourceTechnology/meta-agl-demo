@@ -22,10 +22,10 @@ do_configure[noexec] = "1"
 VSPEC2JSON_OPTS = "-e dbc2vss,vss2dbc --no-uuid --json-pretty"
 
 do_compile() {
-    vspec2json.py -I ${S}/spec ${VSPEC2JSON_OPTS} -o ${WORKDIR}/agl_vss_overlay.vspec -u ${S}/spec/units.yaml ${S}/spec/VehicleSignalSpecification.vspec vss_rel_${PV}-agl.json
-    vspec2json.py -I ${S}/spec ${VSPEC2JSON_OPTS} -o ${WORKDIR}/agl_vss_overlay.vspec.control-panel -u ${S}/spec/units.yaml ${S}/spec/VehicleSignalSpecification.vspec vss_rel_${PV}-agl-control-panel.json
-    vspec2json.py -I ${S}/spec ${VSPEC2JSON_OPTS} -o ${WORKDIR}/agl_vss_overlay.vspec.gw-control-panel -u ${S}/spec/units.yaml ${S}/spec/VehicleSignalSpecification.vspec vss_rel_${PV}-agl-gw-control-panel.json
-    vspec2json.py -I ${S}/spec ${VSPEC2JSON_OPTS} -o ${WORKDIR}/agl_vss_overlay.vspec.gw-hardware -u ${S}/spec/units.yaml ${S}/spec/VehicleSignalSpecification.vspec vss_rel_${PV}-agl-gw-hardware.json
+    vspec2json.py -I ${S}/spec ${VSPEC2JSON_OPTS} -o ${UNPACKDIR}/agl_vss_overlay.vspec -u ${S}/spec/units.yaml ${S}/spec/VehicleSignalSpecification.vspec vss_rel_${PV}-agl.json
+    vspec2json.py -I ${S}/spec ${VSPEC2JSON_OPTS} -o ${UNPACKDIR}/agl_vss_overlay.vspec.control-panel -u ${S}/spec/units.yaml ${S}/spec/VehicleSignalSpecification.vspec vss_rel_${PV}-agl-control-panel.json
+    vspec2json.py -I ${S}/spec ${VSPEC2JSON_OPTS} -o ${UNPACKDIR}/agl_vss_overlay.vspec.gw-control-panel -u ${S}/spec/units.yaml ${S}/spec/VehicleSignalSpecification.vspec vss_rel_${PV}-agl-gw-control-panel.json
+    vspec2json.py -I ${S}/spec ${VSPEC2JSON_OPTS} -o ${UNPACKDIR}/agl_vss_overlay.vspec.gw-hardware -u ${S}/spec/units.yaml ${S}/spec/VehicleSignalSpecification.vspec vss_rel_${PV}-agl-gw-hardware.json
 }
 
 do_install() {

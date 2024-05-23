@@ -14,7 +14,7 @@ do_compile[noexec] = "1"
 do_install() {
     # Install override drop-in
     install -d ${D}${systemd_system_unitdir}/weston.service.d
-    install -m 0644 ${WORKDIR}/weston-agl-driver.conf ${D}${systemd_system_unitdir}/weston.service.d/
+    install -m 0644 ${UNPACKDIR}/weston-agl-driver.conf ${D}${systemd_system_unitdir}/weston.service.d/
 }
 
 FILES:${PN} += "${systemd_system_unitdir}"

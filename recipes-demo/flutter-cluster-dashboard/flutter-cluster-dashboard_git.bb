@@ -36,19 +36,19 @@ SYSTEMD_SERVICE:${PN} = "flutter-cluster-dashboard.service"
 do_compile[network] = "1"
 
 do_install:append() {
-    install -D -m 0644 ${WORKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
+    install -D -m 0644 ${UNPACKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
 
-    install -D -m 0644 ${WORKDIR}/kvm.conf ${D}${systemd_system_unitdir}/${BPN}.service.d/kvm.conf
+    install -D -m 0644 ${UNPACKDIR}/kvm.conf ${D}${systemd_system_unitdir}/${BPN}.service.d/kvm.conf
 
-    install -D -m 0644 ${WORKDIR}/${APP_CONFIG} ${D}${datadir}/flutter/${BPN}.json
+    install -D -m 0644 ${UNPACKDIR}/${APP_CONFIG} ${D}${datadir}/flutter/${BPN}.json
 
     install -d ${D}${sysconfdir}/xdg/AGL/cluster-dashboard
-    install -m 0644 ${WORKDIR}/cluster-dashboard.yaml ${D}${sysconfdir}/xdg/AGL/cluster-dashboard.yaml.default
-    install -m 0644 ${WORKDIR}/cluster-dashboard.yaml.demo ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/cluster-dashboard.yaml.gateway-demo ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/cluster-dashboard.yaml.kvm-demo ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/cluster-dashboard.yaml.kvm-demo-preconfigured ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/cluster-dashboard.token ${D}${sysconfdir}/xdg/AGL/cluster-dashboard/
+    install -m 0644 ${UNPACKDIR}/cluster-dashboard.yaml ${D}${sysconfdir}/xdg/AGL/cluster-dashboard.yaml.default
+    install -m 0644 ${UNPACKDIR}/cluster-dashboard.yaml.demo ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/cluster-dashboard.yaml.gateway-demo ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/cluster-dashboard.yaml.kvm-demo ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/cluster-dashboard.yaml.kvm-demo-preconfigured ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/cluster-dashboard.token ${D}${sysconfdir}/xdg/AGL/cluster-dashboard/
 }
 
 ALTERNATIVE_LINK_NAME[cluster-dashboard.yaml] = "${sysconfdir}/xdg/AGL/cluster-dashboard.yaml"

@@ -31,8 +31,8 @@ do_install:append() {
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/xdg/AGL/mediaplayer
-    install -m 0644 ${WORKDIR}/mediaplayer.conf ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/mediaplayer.token ${D}${sysconfdir}/xdg/AGL/mediaplayer/
+    install -m 0644 ${UNPACKDIR}/mediaplayer.conf ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/mediaplayer.token ${D}${sysconfdir}/xdg/AGL/mediaplayer/
 }
 
 RDEPENDS:${PN} += "libqtappfw mpd"

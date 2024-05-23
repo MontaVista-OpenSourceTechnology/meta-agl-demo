@@ -15,7 +15,7 @@ WAM_APPLICATIONS_DIR="${libdir}/wam_apps"
 
 do_install() {
   install -d ${D}${WAM_APPLICATIONS_DIR}/${PN}
-  install ${WORKDIR}/${APPINFO_FILE} ${D}${WAM_APPLICATIONS_DIR}/${PN}/appinfo.json
+  install ${UNPACKDIR}/${APPINFO_FILE} ${D}${WAM_APPLICATIONS_DIR}/${PN}/appinfo.json
 }
 
 FILES:${PN} = " \

@@ -42,9 +42,9 @@ do_install:append() {
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/xdg/AGL/agl-service-hvac
-    install -m 0644 ${WORKDIR}/agl-service-hvac.conf.default ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/agl-service-hvac.conf.gateway-demo ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/agl-service-hvac.token ${D}${sysconfdir}/xdg/AGL/agl-service-hvac/
+    install -m 0644 ${UNPACKDIR}/agl-service-hvac.conf.default ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/agl-service-hvac.conf.gateway-demo ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/agl-service-hvac.token ${D}${sysconfdir}/xdg/AGL/agl-service-hvac/
 }
 
 FILES:${PN} += "${systemd_system_unitdir}"
