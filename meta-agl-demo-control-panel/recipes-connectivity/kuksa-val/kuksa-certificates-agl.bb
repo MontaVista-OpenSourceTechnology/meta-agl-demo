@@ -26,12 +26,12 @@ do_install() {
     # genCerts.sh script to have different expiry dates than the
     # upstream defaults, and use AGL as the organization.
     install -d ${D}${sysconfdir}/kuksa-val/
-    install -m 0644 ${WORKDIR}/CA.pem ${D}${sysconfdir}/kuksa-val/
-    install -m 0640 -g 900 ${WORKDIR}/Server.key ${D}${sysconfdir}/kuksa-val/
-    install -m 0640 -g 900 ${WORKDIR}/Server.pem ${D}${sysconfdir}/kuksa-val/
-    install -m 0644 -g 900 ${WORKDIR}/jwt.key.pub ${D}${sysconfdir}/kuksa-val/
-    install -m 0644 ${WORKDIR}/Client.key ${D}${sysconfdir}/kuksa-val/
-    install -m 0644 ${WORKDIR}/Client.pem ${D}${sysconfdir}/kuksa-val/
+    install -m 0644 ${UNPACKDIR}/CA.pem ${D}${sysconfdir}/kuksa-val/
+    install -m 0640 -g 900 ${UNPACKDIR}/Server.key ${D}${sysconfdir}/kuksa-val/
+    install -m 0640 -g 900 ${UNPACKDIR}/Server.pem ${D}${sysconfdir}/kuksa-val/
+    install -m 0644 -g 900 ${UNPACKDIR}/jwt.key.pub ${D}${sysconfdir}/kuksa-val/
+    install -m 0644 ${UNPACKDIR}/Client.key ${D}${sysconfdir}/kuksa-val/
+    install -m 0644 ${UNPACKDIR}/Client.pem ${D}${sysconfdir}/kuksa-val/
 }
 
 PACKAGE_BEFORE_PN += "${PN}-ca ${PN}-server ${PN}-client"

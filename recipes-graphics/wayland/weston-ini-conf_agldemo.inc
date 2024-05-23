@@ -14,7 +14,7 @@ do_configure:append() {
     # Standalone cluster support version
     sed -e "s#host=.*#host=${REMOTING_OUTPUT_HOST}#" \
         -e "s#port=.*#port=${REMOTING_OUTPUT_PORT}#" \
-        ${WORKDIR}/remote-output.cfg.in  > ${WORKDIR}/remote-output.cfg
+        ${UNPACKDIR}/remote-output.cfg.in  > ${WORKDIR}/remote-output.cfg
 }
 
 do_compile:append() {
