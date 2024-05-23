@@ -29,7 +29,6 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/agl-service-audiomixer.g
 SRCREV  = "86d318230d9dde04c77dc3b7d7a665fbbed096c7"
 
 PV = "2.0+git${SRCPV}"
-S  = "${WORKDIR}/git"
 
 inherit meson pkgconfig systemd update-alternatives
 
@@ -46,13 +45,13 @@ do_install:append() {
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/xdg/AGL/agl-service-audiomixer
-    install -m 0644 ${WORKDIR}/agl-service-audiomixer.conf.default ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/agl-service-audiomixer.conf.gateway-demo ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/agl-service-audiomixer.token ${D}${sysconfdir}/xdg/AGL/agl-service-audiomixer/
+    install -m 0644 ${UNPACKDIR}/agl-service-audiomixer.conf.default ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/agl-service-audiomixer.conf.gateway-demo ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/agl-service-audiomixer.token ${D}${sysconfdir}/xdg/AGL/agl-service-audiomixer/
 
     # Replace the default systemd unit
-    install -m 0644 ${WORKDIR}/agl-service-audiomixer.service ${D}${systemd_system_unitdir}/
-    install -m 0644 -D ${WORKDIR}/databroker.conf ${D}${systemd_system_unitdir}/agl-service-audiomixer.d/databroker.conf
+    install -m 0644 ${UNPACKDIR}/agl-service-audiomixer.service ${D}${systemd_system_unitdir}/
+    install -m 0644 -D ${UNPACKDIR}/databroker.conf ${D}${systemd_system_unitdir}/agl-service-audiomixer.d/databroker.conf
 }
 
 FILES:${PN} += "${systemd_system_unitdir}"

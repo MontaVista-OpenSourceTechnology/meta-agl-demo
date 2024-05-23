@@ -21,8 +21,6 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/hvac;protocol=https;bran
            "
 SRCREV = "3ff350bd5376c5a255909b43a7336801e797ca76"
 
-S = "${WORKDIR}/git"
-
 inherit qt6-qmake pkgconfig agl-app
 
 AGL_APP_NAME = "HVAC"
@@ -36,8 +34,8 @@ do_install:append() {
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/xdg/AGL/hvac
-    install -m 0644 ${WORKDIR}/hvac.conf ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/hvac.token ${D}${sysconfdir}/xdg/AGL/hvac/
+    install -m 0644 ${UNPACKDIR}/hvac.conf ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/hvac.token ${D}${sysconfdir}/xdg/AGL/hvac/
 }
 
 RDEPENDS:${PN} += " \

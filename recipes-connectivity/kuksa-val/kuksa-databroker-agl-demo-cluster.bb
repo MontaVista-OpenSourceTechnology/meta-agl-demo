@@ -7,11 +7,13 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384
 
 SRC_URI = "file://kuksa-databroker.env"
 
+S = "${UNPACKDIR}"
+
 inherit allarch update-alternatives
 
 do_install() {
     install -d ${D}${sysconfdir}/default
-    install -m 0644 ${WORKDIR}/kuksa-databroker.env ${D}${sysconfdir}/default/kuksa-databroker.agl-demo-cluster-support
+    install -m 0644 ${UNPACKDIR}/kuksa-databroker.env ${D}${sysconfdir}/default/kuksa-databroker.agl-demo-cluster-support
 }
 
 ALTERNATIVE:${PN} = "kuksa-databroker-env"

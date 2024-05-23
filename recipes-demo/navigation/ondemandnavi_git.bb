@@ -18,8 +18,6 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/ondemandnavi;protocol=ht
            "
 SRCREV = "5fdb5a29f54919a9ab6050f7408bfa31037a8d7d"
 
-S = "${WORKDIR}/git"
-
 inherit qt6-qmake pkgconfig agl-app update-alternatives
 
 AGL_APP_ID = "navigation"
@@ -34,10 +32,10 @@ do_install:append() {
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/xdg/AGL/navigation
-    install -m 0644 ${WORKDIR}/navigation.conf ${D}${sysconfdir}/xdg/AGL/navigation.conf.default
-    install -m 0644 ${WORKDIR}/navigation.conf.kvm-demo ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/navigation.conf.gateway-demo ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/navigation.token ${D}${sysconfdir}/xdg/AGL/navigation/
+    install -m 0644 ${UNPACKDIR}/navigation.conf ${D}${sysconfdir}/xdg/AGL/navigation.conf.default
+    install -m 0644 ${UNPACKDIR}/navigation.conf.kvm-demo ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/navigation.conf.gateway-demo ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/navigation.token ${D}${sysconfdir}/xdg/AGL/navigation/
 }
 
 ALTERNATIVE_LINK_NAME[navigation.conf] = "${sysconfdir}/xdg/AGL/navigation.conf"

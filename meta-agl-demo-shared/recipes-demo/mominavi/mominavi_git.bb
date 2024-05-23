@@ -21,8 +21,6 @@ SRC_URI = "git://git.automotivelinux.org/apps/mominavi;protocol=https;branch=${A
           "
 SRCREV = "e36c747c21907b154d6170132933d5ee6d0596eb"
 
-S = "${WORKDIR}/git"
-
 inherit qt6-qmake systemd
 
 MOMIMAP_INITIAL_LATITUDE ??= "36.129"
@@ -31,10 +29,10 @@ QT_INSTALL_PREFIX = "/usr"
 
 do_install:append() {
     install -d ${D}/${systemd_unitdir}/system
-    install -m 0644 ${WORKDIR}/mominavi.service ${D}/${systemd_unitdir}/system
+    install -m 0644 ${UNPACKDIR}/mominavi.service ${D}/${systemd_unitdir}/system
 
     install -m 0755 -d ${D}${sysconfdir}/default/
-    install -m 0755 ${WORKDIR}/mominavi ${D}${sysconfdir}/default/
+    install -m 0755 ${UNPACKDIR}/mominavi ${D}${sysconfdir}/default/
 
     echo 'MOMIMAP_INITIAL_LATITUDE=${MOMIMAP_INITIAL_LATITUDE}' >> ${D}${sysconfdir}/default/mominavi
     echo 'MOMIMAP_INITIAL_LONGITUDE=${MOMIMAP_INITIAL_LONGITUDE}' >> ${D}${sysconfdir}/default/mominavi

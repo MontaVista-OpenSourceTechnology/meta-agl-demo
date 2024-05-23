@@ -19,16 +19,14 @@ SRC_URI = "git://github.com/AGLExport/momiweather.git;protocol=https;branch=main
           "
 SRCREV = "2f742360975c944c9c9190375ce828b2de185cfb"
 
-S = "${WORKDIR}/git"
-
 inherit cmake qt6-cmake systemd pkgconfig
 
 do_install:append() {
 	install -d ${D}/${systemd_unitdir}/system
-	install -m 0644 ${WORKDIR}/momiweather.service ${D}/${systemd_unitdir}/system
+	install -m 0644 ${UNPACKDIR}/momiweather.service ${D}/${systemd_unitdir}/system
 
 	install -m 0755 -d ${D}${sysconfdir}/default/
-	install -m 0755 ${WORKDIR}/momiweather ${D}${sysconfdir}/default/
+	install -m 0755 ${UNPACKDIR}/momiweather ${D}${sysconfdir}/default/
 }
 
 FILES:${PN} += " \
