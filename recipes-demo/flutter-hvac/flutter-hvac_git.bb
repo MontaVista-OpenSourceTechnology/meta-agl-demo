@@ -34,8 +34,8 @@ AGL_APP_NAME = "HVAC"
 
 do_install:append() {
     install -d ${D}${sysconfdir}/xdg/AGL/hvac
-    install -m 0644 ${WORKDIR}/hvac.yaml ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/hvac.token ${D}${sysconfdir}/xdg/AGL/hvac/
+    install -m 0644 ${UNPACKDIR}/hvac.yaml ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/hvac.token ${D}${sysconfdir}/xdg/AGL/hvac/
 }
 
 FILES:${PN} += "${sysconfdir}/xdg/AGL"

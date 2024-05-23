@@ -43,8 +43,8 @@ do_install:append() {
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/xdg/AGL/agl-service-audiomixer
-    install -m 0644 ${WORKDIR}/agl-service-audiomixer.conf ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/agl-service-audiomixer.token ${D}${sysconfdir}/xdg/AGL/agl-service-audiomixer/
+    install -m 0644 ${UNPACKDIR}/agl-service-audiomixer.conf ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/agl-service-audiomixer.token ${D}${sysconfdir}/xdg/AGL/agl-service-audiomixer/
 }
 
 FILES:${PN} += "${systemd_system_unitdir}"

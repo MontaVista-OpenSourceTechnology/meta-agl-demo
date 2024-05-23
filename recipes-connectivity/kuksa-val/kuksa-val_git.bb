@@ -50,7 +50,7 @@ do_install:append() {
 
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -d ${D}${systemd_system_unitdir}
-        install -m 0644 ${WORKDIR}/kuksa-val.service ${D}${systemd_system_unitdir}
+        install -m 0644 ${UNPACKDIR}/kuksa-val.service ${D}${systemd_system_unitdir}
     fi
 }
 

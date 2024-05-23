@@ -11,7 +11,7 @@ do_compile:append() {
     rm -f ${WORKDIR}/weston.ini.kvm
     sed -e "s/@GUEST_VM1_IMAGE@/${GUEST_VM1_IMAGE}/g" \
         -e "s/@GUEST_VM2_IMAGE@/${GUEST_VM2_IMAGE}/g" \
-        ${WORKDIR}/weston.ini.kvm.in > ${WORKDIR}/weston.ini.kvm
+        ${UNPACKDIR}/weston.ini.kvm.in > ${WORKDIR}/weston.ini.kvm
 }
 
 do_install:append() {

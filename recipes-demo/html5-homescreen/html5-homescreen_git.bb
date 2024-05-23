@@ -33,7 +33,7 @@ SYSTEMD_SERVICE:${PN} = "homescreen.service"
 do_install() {
     install -d ${D}${WAM_APPLICATIONS_DIR}/${PN}
     cp -R --no-dereference --preserve=mode,links ${S}/dist/* ${D}${WAM_APPLICATIONS_DIR}/${PN}
-    install -D -m 0644 ${WORKDIR}/homescreen.service ${D}${systemd_system_unitdir}/homescreen.service
+    install -D -m 0644 ${UNPACKDIR}/homescreen.service ${D}${systemd_system_unitdir}/homescreen.service
 }
 
 FILES:${PN} = " \

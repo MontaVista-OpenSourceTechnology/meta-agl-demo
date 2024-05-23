@@ -16,7 +16,7 @@ B = "${WORKDIR}/build"
 
 do_configure[noexec] = "1"
 
-VSPEC2JSON_OPTS = "-e dbc -o ${WORKDIR}/agl_vss_overlay.vspec --no-uuid --json-pretty"
+VSPEC2JSON_OPTS = "-e dbc -o ${UNPACKDIR}/agl_vss_overlay.vspec --no-uuid --json-pretty"
 
 do_compile() {
     vspec2json.py -I ${S}/spec ${VSPEC2JSON_OPTS} -u ${S}/spec/units.yaml ${S}/spec/VehicleSignalSpecification.vspec vss_rel_${PV}-agl.json

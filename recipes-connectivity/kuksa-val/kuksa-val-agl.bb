@@ -7,11 +7,14 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384
 
 SRC_URI = "file://kuksa-val.env"
 
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
+
 inherit allarch update-alternatives
 
 do_install() {
     install -d ${D}${sysconfdir}/default
-    install -m 0644 ${WORKDIR}/kuksa-val.env ${D}${sysconfdir}/default/kuksa-val.agl
+    install -m 0644 ${UNPACKDIR}/kuksa-val.env ${D}${sysconfdir}/default/kuksa-val.agl
 }
 
 FILES:${PN} += "${datadir}/kuksa-val/overlays"

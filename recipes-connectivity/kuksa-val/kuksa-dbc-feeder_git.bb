@@ -30,15 +30,15 @@ SYSTEMD_SERVICE:${PN} = "${BPN}.service"
 
 do_install:append() {
     install -d ${D}${sysconfdir}/kuksa-dbc-feeder
-    install -m 0644 ${WORKDIR}/config.ini ${D}${sysconfdir}/kuksa-dbc-feeder/
+    install -m 0644 ${UNPACKDIR}/config.ini ${D}${sysconfdir}/kuksa-dbc-feeder/
     # Token should ideally not be readable by other users.
     # The potential for running the feeder as non-root will take some
     # investigation.
-    install -m 0600 ${WORKDIR}/dbc_feeder.token ${D}${sysconfdir}/kuksa-dbc-feeder/
-    install -m 0644 ${WORKDIR}/agl-vcar.dbc ${D}${sysconfdir}/kuksa-dbc-feeder/
+    install -m 0600 ${UNPACKDIR}/dbc_feeder.token ${D}${sysconfdir}/kuksa-dbc-feeder/
+    install -m 0644 ${UNPACKDIR}/agl-vcar.dbc ${D}${sysconfdir}/kuksa-dbc-feeder/
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -d ${D}${systemd_system_unitdir}
-        install -m 0644 ${WORKDIR}/kuksa-dbc-feeder.service ${D}${systemd_system_unitdir}
+        install -m 0644 ${UNPACKDIR}/kuksa-dbc-feeder.service ${D}${systemd_system_unitdir}
     fi
 }
 

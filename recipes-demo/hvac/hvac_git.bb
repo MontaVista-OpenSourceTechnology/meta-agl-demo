@@ -37,8 +37,8 @@ do_install:append() {
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/xdg/AGL/hvac
-    install -m 0644 ${WORKDIR}/hvac.conf ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/hvac.token ${D}${sysconfdir}/xdg/AGL/hvac/
+    install -m 0644 ${UNPACKDIR}/hvac.conf ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/hvac.token ${D}${sysconfdir}/xdg/AGL/hvac/
 }
 
 RDEPENDS:${PN} += " \

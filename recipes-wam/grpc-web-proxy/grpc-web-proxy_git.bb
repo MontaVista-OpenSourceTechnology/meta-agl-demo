@@ -21,10 +21,10 @@ do_compile[network] = "1"
 
 do_install:append() {
     install -d ${D}${systemd_system_unitdir}
-    install -m 0644 ${WORKDIR}/databroker-grpc-web-proxy.service ${D}${systemd_system_unitdir}
+    install -m 0644 ${UNPACKDIR}/databroker-grpc-web-proxy.service ${D}${systemd_system_unitdir}
 
     install -d ${D}${sysconfdir}/default
-    install -m 0644 ${WORKDIR}/databroker-grpc-web-proxy.env ${D}${sysconfdir}/default/databroker-grpc-web-proxy.env
+    install -m 0644 ${UNPACKDIR}/databroker-grpc-web-proxy.env ${D}${sysconfdir}/default/databroker-grpc-web-proxy.env
 }
 
 SYSTEMD_SERVICE:${PN} = "databroker-grpc-web-proxy.service"

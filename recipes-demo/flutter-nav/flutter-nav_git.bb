@@ -40,7 +40,7 @@ do_configure:prepend() {
 
 do_install:append() {
     install -d ${D}${sysconfdir}/xdg/AGL
-    install -m 0644 ${WORKDIR}/nav_config.yaml ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/nav_config.yaml ${D}${sysconfdir}/xdg/AGL/
 
     install -m 0755 -d ${D}${sysconfdir}/default/
 

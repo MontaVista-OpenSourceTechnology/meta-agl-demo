@@ -35,7 +35,7 @@ PATH:prepend = "${STAGING_DIR_NATIVE}${OE_QMAKE_PATH_QT_BINS}:"
 SYSTEMD_SERVICE:${PN} = "${BPN}.service"
 
 do_install:append() {
-    install -D -m0644 ${WORKDIR}/launcher.service ${D}${systemd_system_unitdir}/launcher.service
+    install -D -m0644 ${UNPACKDIR}/launcher.service ${D}${systemd_system_unitdir}/launcher.service
 }
 
 RDEPENDS:${PN} += " \

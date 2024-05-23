@@ -26,17 +26,17 @@ APP_CONFIG = "${BPN}.json"
 SYSTEMD_SERVICE:${PN} = "flutter-homescreen.service"
 
 do_install:append() {
-    install -D -m 0644 ${WORKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
+    install -D -m 0644 ${UNPACKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
 
-    install -D -m 0644 ${WORKDIR}/${APP_CONFIG} ${D}${datadir}/flutter/${BPN}.json
+    install -D -m 0644 ${UNPACKDIR}/${APP_CONFIG} ${D}${datadir}/flutter/${BPN}.json
 
     # VIS authorization token file for KUKSA.val should ideally not
     # be readable by other users, but currently that's not doable
     # until a packaging/sandboxing/MAC scheme is (re)implemented or
     # something like OAuth is plumbed in as an alternative.
     install -d ${D}${sysconfdir}/xdg/AGL/homescreen
-    install -m 0644 ${WORKDIR}/homescreen.yaml ${D}${sysconfdir}/xdg/AGL/
-    install -m 0644 ${WORKDIR}/homescreen.token ${D}${sysconfdir}/xdg/AGL/homescreen/
+    install -m 0644 ${UNPACKDIR}/homescreen.yaml ${D}${sysconfdir}/xdg/AGL/
+    install -m 0644 ${UNPACKDIR}/homescreen.token ${D}${sysconfdir}/xdg/AGL/homescreen/
 }
 
 FILES:${PN} += "${datadir} ${sysconfdir}/xdg/AGL"
