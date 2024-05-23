@@ -32,7 +32,7 @@ do_install() {
     # avoid QA complaints
     rm -rf ${D}${libexecdir}/${BPN}/docker
 
-    install -D -m 0644 ${WORKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
+    install -D -m 0644 ${UNPACKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
     
     # Install conf file
     install -d ${D}${sysconfdir}/agl-demo-control-panel

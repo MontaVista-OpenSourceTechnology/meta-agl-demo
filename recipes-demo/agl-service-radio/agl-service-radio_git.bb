@@ -29,7 +29,7 @@ inherit meson pkgconfig systemd
 SYSTEMD_SERVICE:${PN} = "agl-service-radio.service"
 
 do_install:append() {
-    install -D -m 0644 ${WORKDIR}/radio.conf.kvm-demo ${D}${sysconfdir}/xdg/AGL.conf
+    install -D -m 0644 ${UNPACKDIR}/radio.conf.kvm-demo ${D}${sysconfdir}/xdg/AGL.conf
 }
 
 PACKAGE_BEFORE_PN += "${PN}-conf-kvm-demo"
