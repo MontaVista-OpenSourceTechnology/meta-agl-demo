@@ -31,7 +31,7 @@ EXTRA_OECMAKE = "\
 do_install:append() {
     cp -R --no-dereference --preserve=mode,links -v ${CEF_ROOT}/Release/* ${D}${WAM_OUT_DIR}
     cp -R --no-dereference --preserve=mode,links -v ${CEF_ROOT}/Resources/* ${D}${WAM_OUT_DIR}
-    install -v -D -m 644 ${WORKDIR}/WebAppMgr-cef.env ${D}${sysconfdir}/default/WebAppMgr.env
+    install -v -D -m 644 ${UNPACKDIR}/WebAppMgr-cef.env ${D}${sysconfdir}/default/WebAppMgr.env
     sed -i -e 's#@WAM_EXE_DIR@#${WAM_OUT_DIR}#g' ${D}${systemd_system_unitdir}/WebAppMgr.service
 }
 

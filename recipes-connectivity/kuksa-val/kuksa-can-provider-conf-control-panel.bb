@@ -13,7 +13,7 @@ do_compile[noexec] = "1"
 
 do_install() {
     install -d ${D}${sysconfdir}/default
-    install -m 0644 ${WORKDIR}/kuksa-can-provider.control-panel ${D}${sysconfdir}/default/
+    install -m 0644 ${UNPACKDIR}/kuksa-can-provider.control-panel ${D}${sysconfdir}/default/
 }
 
 ALTERNATIVE_LINK_NAME[kuksa-can-provider.env] = "${sysconfdir}/default/kuksa-can-provider"
