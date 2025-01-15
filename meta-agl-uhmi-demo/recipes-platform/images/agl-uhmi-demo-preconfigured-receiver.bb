@@ -12,6 +12,7 @@ IMAGE_INSTALL += " \
     packagegroup-rvgpu \
     packagegroup-ddfw \
     uhmi-config-receiver \
+    agl-compositor \
 "
 
 UHMI_HOSTNAME ?= "agl-host1"
