@@ -19,7 +19,7 @@ DEPENDS = " \
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/agl-vss-proxy;protocol=https;branch=${AGL_BRANCH} \
            file://agl-vss-proxy.token \
 "
-SRCREV  = "e437300d0b5c20114ea1843dbf00815304af3f27"
+SRCREV  = "34e2583610c7f0a95d988b26f23d4f755f248883"
 
 PV = "1.0+git${SRCPV}"
 S  = "${WORKDIR}/git"
