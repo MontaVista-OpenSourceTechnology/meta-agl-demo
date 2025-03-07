@@ -30,6 +30,7 @@ HOST_AUDIO_INSTALL = " \
 IMAGE_INSTALL += "\
     kuksa-databroker-agl-demo-cluster \
     ${HOST_AUDIO_INSTALL} \
+    ${@bb.utils.contains("DISTRO_FEATURES", "agl-devel", "kuksa-client" , "", d)} \
 "
 
 GUEST_VM1_IMAGE = "agl-ivi-demo-flutter-guest-preconfigured"
