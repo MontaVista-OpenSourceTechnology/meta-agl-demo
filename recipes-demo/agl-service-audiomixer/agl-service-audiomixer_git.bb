@@ -19,12 +19,12 @@ DEPENDS = " \
     kuksa-databroker \
 "
 
-SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/agl-service-audiomixer.git;protocol=https;branch=${AGL_BRANCH} \
+SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/agl-service-audiomixer.git;protocol=https;branch=sandbox/scottm/ew2025 \
            file://agl-service-audiomixer.conf.default \
            file://agl-service-audiomixer.conf.gateway-demo \
            file://agl-service-audiomixer.token \
 "
-SRCREV  = "2e7d2c7a4d9c6dd37552c69a896286aa7dacd2c3"
+SRCREV  = "289c21fc9365dc79eb8338258edeb9e168900190"
 
 PV = "2.0+git${SRCPV}"
 S  = "${WORKDIR}/git"

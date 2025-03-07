@@ -17,12 +17,12 @@ DEPENDS = " \
     kuksa-databroker \
 "
 
-SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/agl-service-hvac;protocol=https;branch=${AGL_BRANCH} \
+SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/agl-service-hvac;protocol=https;branch=sandbox/scottm/ew2025 \
            file://agl-service-hvac.conf.default \
            file://agl-service-hvac.conf.gateway-demo \
            file://agl-service-hvac.token \
 "
-SRCREV  = "1f55937667e35fb79dabee0e180787e34a59169a"
+SRCREV  = "a963823edc783ceb1338258bb24737e223c70673"
 
 PV = "2.0+git${SRCPV}"
 S  = "${WORKDIR}/git"
