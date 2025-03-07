@@ -1,3 +1,4 @@
+use-tls: false
 initialize:
 - signal: Vehicle.Speed
   value: 0

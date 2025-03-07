@@ -23,12 +23,19 @@ tls_server_name = "localhost"
 verbose = False
 
 async def main():
-    client = VSSClient(hostname,
-                       port,
-                       root_certificates=Path(ca_cert_filename),
-                       tls_server_name=tls_server_name,
-                       token=token,
-                       ensure_startup_connection=True)
+    client = None
+    if use_tls:
+        client = VSSClient(hostname,
+                           port,
+                           root_certificates=Path(ca_cert_filename),
+                           tls_server_name=tls_server_name,
+                           token=token,
+                           ensure_startup_connection=True)
+    else:
+        client = VSSClient(hostname,
+                           port,
+                           token=token,
+                           ensure_startup_connection=True)
     await client.connect()
     print(f"Connected to KUKSA.val databroker at {hostname}:{port}")
     if "initialize" in config and isinstance(config["initialize"], list):

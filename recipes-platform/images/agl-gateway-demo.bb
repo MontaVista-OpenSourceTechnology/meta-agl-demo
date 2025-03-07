@@ -17,6 +17,7 @@ AGL_DEVEL_INSTALL = " \
 "
 
 IMAGE_INSTALL += " \
+    kuksa-databroker-agl-demo-gateway \
     agl-vss-proxy \
     kuksa-can-provider-conf-gw-control-panel \
     vss-agl-gw-control-panel \
