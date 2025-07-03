@@ -33,3 +33,6 @@ PREFERRED_PROVIDER_nativesdk-llvm = "nativesdk-clang"
 PROVIDES:pn-clang = "llvm"
 PROVIDES:pn-clang-native = "llvm-native"
 PROVIDES:pn-nativesdk-clang = "nativesdk-llvm"
+
+# Mask out pyqt6 bbappend until latest Qt supports it
+BBMASK += "meta-agl-demo/recipes-devtools/python/python3-pyqt6_%.bbappend"
