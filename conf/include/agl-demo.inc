@@ -40,3 +40,6 @@ PROVIDES:pn-nativesdk-clang = "nativesdk-llvm"
 # For systemd CAN bus configuration
 MACHINE_FEATURES:append:s4sk = " canfd"
 CANBUS_NETWORK_CONFIG:s4sk = "canbus-can-fd.network"
+
+# Mask out pyqt6 bbappend until latest Qt supports it
+BBMASK += "meta-agl-demo/recipes-devtools/python/python3-pyqt6_%.bbappend"
