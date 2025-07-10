@@ -13,7 +13,6 @@ ALLOW_EMPTY:${PN} = "1"
 
 RDEPENDS:${PN} += "\
     packagegroup-agl-ttf-fonts \
-    packagegroup-agl-source-han-sans-ttf-fonts \
     packagegroup-agl-networking \
     "
 

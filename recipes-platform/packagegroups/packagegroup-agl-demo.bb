@@ -23,10 +23,6 @@ TTF_FONTS = " \
     ttf-dejavu-sans-mono \
     ttf-dejavu-serif \
     ttf-noto-emoji-color \
-    source-han-sans-cn-fonts \
-    source-han-sans-jp-fonts \
-    source-han-sans-tw-fonts \
-    source-han-sans-kr-fonts \
     "
 
 RDEPENDS:${PN} += " \
