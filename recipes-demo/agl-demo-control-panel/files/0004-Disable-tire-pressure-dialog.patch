@@ -1,0 +1,31 @@
+From 28b4ca9a7df4d72964506cdf5d08b730b01e7ce0 Mon Sep 17 00:00:00 2001
+From: Scott Murray <scott.murray@konsulko.com>
+Date: Wed, 26 Nov 2025 23:07:41 -0500
+Subject: [PATCH 4/4] Disable tire pressure dialog
+
+Disable the tire pressure dialog by not connecting the signal
+to raise it.  It will be more confusing than useful in a gateway
+demo as we lack the required CAN signals to transport values to
+the databroker.
+
+Signed-off-by: Scott Murray <scott.murray@konsulko.com>
+---
+ Widgets/ICPage.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Widgets/ICPage.py b/Widgets/ICPage.py
+index 144cb0a..b468869 100644
+--- a/Widgets/ICPage.py
++++ b/Widgets/ICPage.py
+@@ -188,7 +188,7 @@ class ICWidget(Base, Form):
+         self.TirePressure = self.dockWidgetContents.findChild(QWidget, "TirePressure")
+         self.TirePressureBtn = self.findChild(
+             QtWidgets.QPushButton, "TirePressureBtn")
+-        self.TirePressureBtn.clicked.connect(self.toggle_TirePressureDock)
++        #self.TirePressureBtn.clicked.connect(self.toggle_TirePressureDock)
+ 
+         # after 2 seconds reconnect the signals
+         QTimer.singleShot(500, self.reconnectSignals)
+-- 
+2.51.0
+

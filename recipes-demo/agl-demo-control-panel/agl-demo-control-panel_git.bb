@@ -5,6 +5,10 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=685e0faaaec2c2334cf8159ca6bd2975"
 PV = "1.0+git${SRCPV}"
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/agl-demo-control-panel;protocol=https;branch=${AGL_BRANCH} \
+           file://0001-Disable-CARLA-playback-by-default.patch \
+           file://0002-Fix-steering-wheel-VSS-mode.patch \
+           file://0003-Fix-demo-mode-behavior.patch \
+           file://0004-Disable-tire-pressure-dialog.patch \
            file://agl-demo-control-panel.service \
 "
 SRCREV = "2cfe669d76c27268693d8f51888e56ec4f88f6c8"
@@ -40,11 +44,9 @@ do_install() {
     sed 's/ip = localhost/ip = 192.168.10.2/' ${S}/extras/config.ini > \
         ${D}${sysconfdir}/agl-demo-control-panel/config.ini.demo
     sed -e 's/hvac-enabled = true/hvac-enabled = false/' \
-        -e 's/steering-wheel-enabled = true/steering-wheel-enabled = false/' \
         ${S}/extras/config.ini > \
         ${D}${sysconfdir}/agl-demo-control-panel/config.ini.gateway-demo
 }
-
 
 ALTERNATIVE_LINK_NAME[agl-demo-control-panel.ini] = "${sysconfdir}/agl-demo-control-panel/config.ini"
 

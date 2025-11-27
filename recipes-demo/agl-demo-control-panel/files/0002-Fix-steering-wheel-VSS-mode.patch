@@ -1,0 +1,54 @@
+From 80fb9bb6625fbc5320444e17f819a94ad333610b Mon Sep 17 00:00:00 2001
+From: Scott Murray <scott.murray@konsulko.com>
+Date: Wed, 26 Nov 2025 22:59:33 -0500
+Subject: [PATCH 2/4] Fix steering wheel VSS mode
+
+Changes:
+- The variable controlling the VSS vs CAN mode for the steering
+  wheel signaling had an incorrect default value, change it to
+  what the SteeringCtrlPage.py code expects for VSS mode.
+  More rework is needed to either add back a button on the
+  configuration page to switch modes, or instead add an option
+  to the configuration file.
+- Fix the on/off set values for the steering wheel VSS signals,
+  as the KUKSA python SDK code does seem to want true/false.
+
+Bug-AGL: SPEC-xxxx
+
+Signed-off-by: Scott Murray <scott.murray@konsulko.com>
+---
+ Widgets/SteeringCtrlPage.py | 4 ++--
+ Widgets/settings.py         | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Widgets/SteeringCtrlPage.py b/Widgets/SteeringCtrlPage.py
+index 5eb486d..99f5571 100644
+--- a/Widgets/SteeringCtrlPage.py
++++ b/Widgets/SteeringCtrlPage.py
+@@ -130,8 +130,8 @@ class SteeringCtrlWidget(Base, Form):
+         button_clicked = button.objectName()
+         signal_type = settings.Steering_Signal_Type
+         if signal_type == "VSS":
+-            self.kuksa_client.set(self.Steering.switches[button_clicked]["VSS"], "1")
+-            self.kuksa_client.set(self.Steering.switches[button_clicked]["VSS"], "0")
++            self.kuksa_client.set(self.Steering.switches[button_clicked]["VSS"], "true")
++            self.kuksa_client.set(self.Steering.switches[button_clicked]["VSS"], "false")
+         elif signal_type == "CAN":
+             feed_can.send_can_signal(
+                 self.Steering.switches[button_clicked]["CAN"])
+diff --git a/Widgets/settings.py b/Widgets/settings.py
+index 4adf72d..acea7d9 100644
+--- a/Widgets/settings.py
++++ b/Widgets/settings.py
+@@ -34,7 +34,7 @@ Form, Base = uic.loadUiType(os.path.join(
+ # ========================================
+ 
+ # Global Variables
+-Steering_Signal_Type = "Kuksa"
++Steering_Signal_Type = "VSS"
+ Protocol = None
+ 
+ class settings(Base, Form):
+-- 
+2.51.0
+

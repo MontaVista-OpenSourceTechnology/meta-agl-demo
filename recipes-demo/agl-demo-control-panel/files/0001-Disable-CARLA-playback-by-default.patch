@@ -1,0 +1,78 @@
+From b34f6263886e4cd460e5c4d87c9b19b4fb7bf69a Mon Sep 17 00:00:00 2001
+From: Scott Murray <scott.murray@konsulko.com>
+Date: Wed, 26 Nov 2025 22:57:10 -0500
+Subject: [PATCH 1/4] Disable CARLA playback by default
+
+Changes:
+- Add configuration checks around CARLA playback initialization to
+  avoid side effects when it is disabled.
+- Update default config.ini to disable CARLA playback by default.
+
+Bug-AGL: SPEC-xxxx
+
+Signed-off-by: Scott Murray <scott.murray@konsulko.com>
+---
+ Scripts/record_playback.py | 10 +++++-----
+ Widgets/ICPage.py          | 11 ++++++-----
+ extras/config.ini          |  2 +-
+ 3 files changed, 12 insertions(+), 11 deletions(-)
+
+diff --git a/Scripts/record_playback.py b/Scripts/record_playback.py
+index 2b7c21e..8076ad1 100644
+--- a/Scripts/record_playback.py
++++ b/Scripts/record_playback.py
+@@ -26,11 +26,11 @@ class CAN_playback(QThread):
+     throttleUpdate = pyqtSignal(int)
+     indicatorUpdate = pyqtSignal(str)
+ 
+-    try:
+-        playbackFile = config.get_playback_file()
+-    except Exception as e:
+-        logging.error("Error loading playback file:", e)
+-        # playbackFile = os.path.join(current_dir, "can_messages.txt")
++    if config.file_playback_enabled():
++        try:
++            playbackFile = config.get_playback_file()
++        except Exception as e:
++            logging.error("Error loading playback file:", e)
+ 
+     def __init__(self, interface='vcan0'):
+         super(CAN_playback, self).__init__()
+diff --git a/Widgets/ICPage.py b/Widgets/ICPage.py
+index 8d426ee..dea9191 100644
+--- a/Widgets/ICPage.py
++++ b/Widgets/ICPage.py
+@@ -176,11 +176,12 @@ class ICWidget(Base, Form):
+ 
+         self.Script_toggle.clicked.connect(self.handle_Script_toggle)
+ 
+-        try:
+-            self.Playback = CAN_playback()
+-            self.Playback_connections()
+-        except Exception as e:
+-            logging.error(f"Error creating playback object {e}")
++        if config.file_playback_enabled():
++            try:
++                self.Playback = CAN_playback()
++                self.Playback_connections()
++            except Exception as e:
++                logging.error(f"Error creating playback object {e}")
+ 
+         self.TirePressureDock = self.findChild(QDockWidget, "TirePressureDock")
+         self.dockWidgetContents = self.TirePressureDock.widget()
+diff --git a/extras/config.ini b/extras/config.ini
+index d88dee9..09dfafc 100644
+--- a/extras/config.ini
++++ b/extras/config.ini
+@@ -2,7 +2,7 @@
+ fullscreen-mode = true
+ hvac-enabled = true
+ steering-wheel-enabled = true
+-file-playback-enabled = true
++file-playback-enabled = false
+ file-playback-path =
+ dbc-file-path =
+ can-interface =
+-- 
+2.51.0
+
