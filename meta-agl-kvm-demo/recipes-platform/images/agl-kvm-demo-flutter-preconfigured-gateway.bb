@@ -16,6 +16,7 @@ IMAGE_INSTALL:remove = " \
 IMAGE_INSTALL += "\
     agl-service-hvac-conf-gateway-demo \
     agl-service-audiomixer-conf-gateway-demo \
+    ${@bb.utils.contains("DISTRO_FEATURES", "agl-devel", "kuksa-client" , "", d)} \
 "
 
 GUEST_VM1_IMAGE = "agl-ivi-demo-flutter-guest-preconfigured-gateway"
