@@ -21,7 +21,6 @@ IMAGE_INSTALL += "\
     weston-ini-conf-landscape \
     \
     packagegroup-agl-networking \
-    cluster-receiver \
     \
     ${@bb.utils.contains("DISTRO_FEATURES", "agl-devel", "${AGL_DEVEL_INSTALL}" , "", d)} \
 "

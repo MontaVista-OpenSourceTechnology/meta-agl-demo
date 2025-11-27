@@ -1,10 +1,6 @@
 require agl-demo-features.inc
 
-TBTNAVI_CONF = "tbtnavi-conf"
-
 FEATURE_PACKAGES_agl-demo-cluster-support = " \
-    tbtnavi \
-    ${TBTNAVI_CONF} \
     kuksa-databroker-agl-demo-cluster \
 "
 
