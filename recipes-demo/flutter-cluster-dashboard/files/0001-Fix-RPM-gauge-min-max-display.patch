@@ -1,0 +1,34 @@
+From c89d7ed7418c2372c1bede15a9d995d130bebde8 Mon Sep 17 00:00:00 2001
+From: Scott Murray <scott.murray@konsulko.com>
+Date: Wed, 26 Nov 2025 22:49:55 -0500
+Subject: [PATCH] Fix RPM gauge min/max display
+
+At some point the displayed RPM min/max started showing as a float
+with one decimal place, which looks odd and is unnecessary.  Do
+a conversion to integer of those values to match the speed gauge.
+
+Bug-AGL: SPEC-xxxx
+
+Signed-off-by: Scott Murray <scott.murray@konsulko.com>
+---
+ lib/screen/widgets/gauges/rpm_gauge_animation_wrapper.dart | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/screen/widgets/gauges/rpm_gauge_animation_wrapper.dart b/lib/screen/widgets/gauges/rpm_gauge_animation_wrapper.dart
+index b110a1a..8d1f83e 100644
+--- a/lib/screen/widgets/gauges/rpm_gauge_animation_wrapper.dart
++++ b/lib/screen/widgets/gauges/rpm_gauge_animation_wrapper.dart
+@@ -38,8 +38,8 @@ class RPMGauge extends HookConsumerWidget {
+               high: maxRPM,
+               mainValue: animationController.value,
+               label: "rpm",
+-              zeroTickLabel: minRPM.toString(),
+-              maxTickLabel: maxRPM.toString(),
++              zeroTickLabel: minRPM.toInt().toString(),
++              maxTickLabel: maxRPM.toInt().toString(),
+               inPrimaryColor: gaugeColor?.inPrimary,
+               outPrimaryColor: gaugeColor?.outPrimary,
+               secondaryColor: gaugeColor?.secondary,
+-- 
+2.51.0
+

@@ -9,6 +9,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=0c52b0e4b5f0dbf57ea7d44bebb2e29d"
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/flutter-instrument-cluster;protocol=https;branch=${AGL_BRANCH} \
+    file://0001-Fix-RPM-gauge-min-max-display.patch \
     file://flutter-cluster-dashboard.service \
     file://flutter_cluster_dashboard_on_bg.toml \
     file://cluster-dashboard.yaml \
