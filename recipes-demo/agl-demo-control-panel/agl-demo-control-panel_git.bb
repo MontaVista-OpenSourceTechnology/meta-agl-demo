@@ -6,8 +6,9 @@ PV = "1.0+git${SRCPV}"
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/src/agl-demo-control-panel;protocol=https;branch=${AGL_BRANCH} \
            file://agl-demo-control-panel.service \
+           file://agl-demo-control-panel.token \
 "
-SRCREV = "262fd5529462617cbb65747585498c8977cdd9db"
+SRCREV = "2177ea0cd57861e489b3e1b9eb8e5031f84f0252"
 
 S = "${WORKDIR}/git"
 
@@ -39,6 +40,10 @@ do_install() {
         -e 's/steering-wheel-enabled = true/steering-wheel-enabled = false/' \
         ${S}/extras/config.ini > \
         ${D}${sysconfdir}/agl-demo-control-panel/config.ini.gateway-demo
+
+    # Install databroker authorization token
+    install -d ${D}${sysconfdir}/xdg/AGL/agl-demo-control-panel
+    install -m 0644 ${WORKDIR}/agl-demo-control-panel.token ${D}${sysconfdir}/xdg/AGL/agl-demo-control-panel/
 }
 
 # For now generate resource wrapper on first boot, as it looks non-trivial
