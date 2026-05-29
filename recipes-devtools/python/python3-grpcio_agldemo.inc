@@ -12,6 +12,13 @@
 # is set up, so we need to actually add it explicitly. The upstream
 # recipe seems slightly broken in this respect.
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+
 GRPC_LDFLAGS ?= " -lpthread"
 GRPC_LDFLAGS:append:riscv64 = " -latomic"
 export GRPC_PYTHON_LDFLAGS = "${GRPC_LDFLAGS}"
+GRPC_CFLAGS:append = " -std=c++14"
+
+# GCC 13+ no longer transitively provides uint8_t/uint64_t; add missing
+# <cstdint> include to the bundled abseil str_format header.
+SRC_URI += "file://0001-absl-str-format-extension-add-missing-cstdint.patch"

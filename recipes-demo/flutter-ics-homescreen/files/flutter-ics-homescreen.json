@@ -1,10 +1,10 @@
 {
-        "view" : [ {
-                "window_type" : "BG",
-                "width" : 1080,
-                "height": 1920,
-                "fullscreen": true,
-                "window_activation_area" : { "x" : 0, "y" : 56, "width" : 1080, "height" : 1712 }
-                }
-        ]
+  "sub": "local dev",
+  "iss": "createToken.py",
+  "aud": [
+    "kuksa.val"
+  ],
+  "iat": 1767733200,
+  "exp": 1924991999,
+  "scope": "actuate provide"
 }

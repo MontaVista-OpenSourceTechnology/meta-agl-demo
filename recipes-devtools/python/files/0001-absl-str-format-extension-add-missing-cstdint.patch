@@ -1,0 +1,23 @@
+From: Jan-Simon Moeller <jsmoeller@linuxfoundation.org>
+Date: Wed, 28 May 2026 00:00:00 +0000
+Subject: [PATCH] absl: str_format/extension.h: add missing <cstdint> include
+
+GCC 13+ no longer transitively provides uint8_t/uint64_t through
+other standard headers. The scoped enum forward declarations in this
+header require the fixed-width integer types from <cstdint>.
+
+Upstream-Status: Backport [abseil-cpp lts_20211102]
+Signed-off-by: Jan-Simon Moeller <jsmoeller@linuxfoundation.org>
+---
+ third_party/abseil-cpp/absl/strings/internal/str_format/extension.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/third_party/abseil-cpp/absl/strings/internal/str_format/extension.h
++++ b/third_party/abseil-cpp/absl/strings/internal/str_format/extension.h
+@@ -19,6 +19,7 @@
+ #include <limits.h>
+
+ #include <cstddef>
++#include <cstdint>
+ #include <cstring>
+ #include <ostream>

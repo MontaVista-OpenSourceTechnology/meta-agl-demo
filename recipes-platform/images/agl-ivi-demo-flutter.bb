@@ -2,7 +2,9 @@ require agl-ivi-image-flutter.bb
 
 SUMMARY = "AGL IVI demo Flutter image"
 
-FLUTTER_ICS_HOMESCREEN_CONF = "flutter-ics-homescreen-conf"
+#FLUTTER_ICS_HOMESCREEN_CONF = "flutter-ics-homescreen-conf"
+FLUTTER_ICS_HOMESCREEN_CONF = ""
+
 ONDEMANDNAVI_CONF = "ondemandnavi-conf"
 
 AGL_APPS_INSTALL += " \
