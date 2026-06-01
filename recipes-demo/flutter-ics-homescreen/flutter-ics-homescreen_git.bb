@@ -7,8 +7,9 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
 SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/flutter-ics-homescreen;protocol=https;branch=${AGL_BRANCH} \
-  file://flutter-ics-homescreen.json \
+  file://ics-homescreen.toml \
   file://flutter-ics-homescreen.service \
+  file://flutter-ics-homescreen.env \
   file://ics-homescreen.yaml \
   file://ics-homescreen.yaml.gateway-demo \
   file://ics-homescreen.yaml.kvm-demo \
@@ -17,18 +18,17 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/flutter-ics-homescreen;p
   file://radio-presets.yaml \
   file://kvm.conf \
 "
-SRCREV = "5587c6ae79b482fbff26442bb239d7d7eb55a337"
+SRCREV = "aece08b02943fec6e99fc02bc697dacb22aa229e"
 
 S = "${WORKDIR}/git"
 
 PUBSPEC_APPNAME = "flutter_ics_homescreen"
-FLUTTER_APPLICATION_INSTALL_PREFIX = "/flutter"
-
-FLUTTER_BUILD_ARGS = "bundle -v"
 
 inherit flutter-app systemd update-alternatives
 
-APP_CONFIG = "${BPN}.json"
+APP_CONFIG = "ics-homescreen.toml"
+
+PUBSPEC_IGNORE_LOCKFILE = "1"
 
 SYSTEMD_SERVICE:${PN} = "flutter-ics-homescreen.service"
 
@@ -40,9 +40,9 @@ APP_AOT_EXTRA:append = " ${DISABLE_BG_ANIMATION}"
 do_install:append() {
     install -D -m 0644 ${WORKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
 
-    install -D -m 0644 ${WORKDIR}/kvm.conf ${D}${systemd_system_unitdir}/${BPN}.service.d/kvm.conf
+    install -D -m 0644 ${WORKDIR}/${BPN}.env ${D}${sysconfdir}/default/${BPN}
 
-    install -D -m 0644 ${WORKDIR}/${APP_CONFIG} ${D}${datadir}/flutter/${BPN}.json
+    install -D -m 0644 ${WORKDIR}/kvm.conf ${D}${systemd_system_unitdir}/${BPN}.service.d/kvm.conf
 
     # VIS authorization token file for KUKSA.val should ideally not
     # be readable by other users, but currently that's not doable
@@ -59,7 +59,7 @@ do_install:append() {
 
 ALTERNATIVE_LINK_NAME[ics-homescreen.yaml] = "${sysconfdir}/xdg/AGL/ics-homescreen.yaml"
 
-FILES:${PN} += "${datadir} ${sysconfdir}/xdg/AGL"
+FILES:${PN} += "${datadir} ${sysconfdir}/xdg/AGL ${sysconfdir}/default"
 
 RDEPENDS:${PN} += " \
     flutter-auto \
