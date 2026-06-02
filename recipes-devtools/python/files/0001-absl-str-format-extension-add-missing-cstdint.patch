@@ -1,0 +1,28 @@
+From: Jan-Simon Moeller <jsmoeller@linuxfoundation.org>
+Date: Fri, 29 May 2026 00:00:00 +0000
+Subject: [PATCH] abseil: add missing <cstdint> include for newer gcc
+
+The bundled abseil-cpp uses uint8_t and uint64_t in
+str_format/extension.h without including <cstdint>.
+With newer gcc on Debian 13, this causes:
+  error: found ':' in nested-name-specifier, expected '::'
+  enum class FormatConversionChar : uint8_t;
+
+Upstream-Status: Inappropriate [version-specific bundled copy]
+Signed-off-by: Jan-Simon Moeller <jsmoeller@linuxfoundation.org>
+---
+ third_party/abseil-cpp/absl/strings/internal/str_format/extension.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/third_party/abseil-cpp/absl/strings/internal/str_format/extension.h b/third_party/abseil-cpp/absl/strings/internal/str_format/extension.h
+index 1111111..2222222 100644
+--- a/third_party/abseil-cpp/absl/strings/internal/str_format/extension.h
++++ b/third_party/abseil-cpp/absl/strings/internal/str_format/extension.h
+@@ -16,6 +16,7 @@
+ #ifndef ABSL_STRINGS_INTERNAL_STR_FORMAT_EXTENSION_H_
+ #define ABSL_STRINGS_INTERNAL_STR_FORMAT_EXTENSION_H_
+
++#include <cstdint>
+ #include <limits.h>
+
+ #include <cstddef>

@@ -15,3 +15,13 @@
 GRPC_LDFLAGS ?= " -lpthread"
 GRPC_LDFLAGS:append:riscv64 = " -latomic"
 export GRPC_PYTHON_LDFLAGS = "${GRPC_LDFLAGS}"
+
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+
+# GCC 13+ no longer transitively provides uint8_t/uint64_t; add missing
+# <cstdint> include to the bundled abseil str_format header.
+# GCC 14 makes -Wimplicit-function-declaration an error in C99+ mode; add
+# missing <unistd.h> to the bundled zlib gzguts.h.
+SRC_URI += "file://0001-absl-str-format-extension-add-missing-cstdint.patch \
+            file://0002-zlib-gzguts-add-missing-unistd-include.patch \
+            "

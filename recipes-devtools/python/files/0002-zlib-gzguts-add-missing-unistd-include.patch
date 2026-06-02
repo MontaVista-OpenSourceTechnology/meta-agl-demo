@@ -1,0 +1,26 @@
+From: Jan-Simon Moeller <jsmoeller@linuxfoundation.org>
+Date: Fri, 29 May 2026 00:00:00 +0000
+Subject: [PATCH] zlib: add missing <unistd.h> include in gzguts.h
+
+GCC 14 makes -Wimplicit-function-declaration an error in C99+ mode.
+The bundled zlib uses lseek() in gzlib.c without including <unistd.h>
+(where lseek is declared), causing a build failure on newer hosts.
+
+Upstream-Status: Inappropriate [version-specific bundled copy]
+Signed-off-by: Jan-Simon Moeller <jsmoeller@linuxfoundation.org>
+---
+ third_party/zlib/gzguts.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/third_party/zlib/gzguts.h b/third_party/zlib/gzguts.h
+index 1111111..2222222 100644
+--- a/third_party/zlib/gzguts.h
++++ b/third_party/zlib/gzguts.h
+@@ -19,6 +19,7 @@
+ #endif
+
+ #include <stdio.h>
++#include <unistd.h>
+ #include "zlib.h"
+ #ifdef STDC
+ #  include <string.h>
