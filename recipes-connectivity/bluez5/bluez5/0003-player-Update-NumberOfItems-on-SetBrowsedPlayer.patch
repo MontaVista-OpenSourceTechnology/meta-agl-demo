@@ -1,0 +1,60 @@
+From: George Kiagiadakis <george.kiagiadakis@collabora.com>
+Date: Fri, 21 Aug 2026 22:34:47 +0300
+Subject: [PATCH] player: Fix NumberOfItems never being updated on SetBrowsedPlayer
+
+media_player_total_items_complete() discarded the count reported by the
+player unless a D-Bus request happened to be pending:
+
+	if (folder == NULL || folder->msg == NULL)
+		return;
+
+Of the paths reaching it, only media_player_change_folder_complete()
+still holds a pending message. The count was therefore applied on
+ChangeFolder and dropped everywhere else, notably on
+media_player_set_folder(), which avrcp calls on SetBrowsedPlayer, that
+is precisely when the count is first learned.
+
+The guard reads as copy-paste from the four *_complete() functions
+above it. Those need a pending message because they send a reply. This
+one only refreshes a property, so there is no request to correlate it
+with.
+
+f17d3a2c3 replaced an unconditional emit in media_player_change_scope()
+with one deferred into this completion whenever the total_items
+callback is present, and the guard then swallowed it. The AVRCP
+controller always registers that callback, so NumberOfItems has not
+been refreshed on SetBrowsedPlayer since. That commit states the
+intent itself: "On response, emit PropertyChanged for 'NumberOfItems'
+property".
+
+Note the count is still applied to whatever mp->scope is at completion
+time rather than to the folder it was requested for.
+media_player_change_scope() sets the scope before asking, so the common
+case is right, but a second scope change in flight misattributes it.
+
+Fixes: f17d3a2c3b0d ("audio/avrcp: Add support for GetTotalNumberOfItems")
+
+Assisted-by: Claude:claude-opus-5 valgrind
+
+Upstream-Status: Backport [https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=3215010456f1]
+---
+ profiles/audio/player.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/profiles/audio/player.c b/profiles/audio/player.c
+index fa3810a7f..7c5ea5b62 100644
+--- a/profiles/audio/player.c
++++ b/profiles/audio/player.c
+@@ -753,7 +753,7 @@ void media_player_total_items_complete(struct media_player *mp,
+ {
+ 	struct media_folder *folder = mp->scope;
+ 
+-	if (folder == NULL || mp->msg == NULL)
++	if (folder == NULL)
+ 		return;
+ 
+ 	if (folder->number_of_items != num_of_items) {
+-- 
+2.54.0 (Apple Git-157)
+
+

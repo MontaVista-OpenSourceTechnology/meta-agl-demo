@@ -1,0 +1,39 @@
+From: George Kiagiadakis <george.kiagiadakis@collabora.com>
+Date: Fri, 21 Aug 2026 22:34:48 +0300
+Subject: [PATCH] player: Report EBUSY from a busy Search()
+
+media_folder_search() answered a request that arrived while another one
+was still pending with EINVAL, while media_folder_list_items(),
+media_folder_change_folder() and media_item_play() all answer EBUSY for
+the very same condition.
+
+The commit that added Search copied the error code from the argument
+check sitting directly above it, rather than from ChangeFolder, which
+had gained the identical busy check four days earlier and used EBUSY.
+
+Fixes: 0a232a434d4b ("audio/player: Add implementation of MediaFolder.Search")
+
+Assisted-by: Claude:claude-opus-5 valgrind
+
+Upstream-Status: Backport [https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=a93047cd044f]
+---
+ profiles/audio/player.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/profiles/audio/player.c b/profiles/audio/player.c
+index 7c5ea5b62..4c94dcab4 100644
+--- a/profiles/audio/player.c
++++ b/profiles/audio/player.c
+@@ -826,7 +826,7 @@ static DBusMessage *media_folder_search(DBusConnection *conn, DBusMessage *msg,
+ 		return btd_error_not_supported(msg);
+ 
+ 	if (mp->msg != NULL)
+-		return btd_error_failed(msg, strerror(EINVAL));
++		return btd_error_failed(msg, strerror(EBUSY));
+ 
+ 	err = cb->cbs->search(mp, string, cb->user_data);
+ 	if (err < 0)
+-- 
+2.54.0 (Apple Git-157)
+
+

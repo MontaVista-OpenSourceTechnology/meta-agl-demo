@@ -1,0 +1,45 @@
+From: George Kiagiadakis <george.kiagiadakis@collabora.com>
+Date: Fri, 21 Aug 2026 22:34:46 +0300
+Subject: [PATCH] player: Answer pending request when the player is destroyed
+
+media_player_destroy() dropped its reference to the pending request
+without answering it. A client with a ListItems(), Search(),
+ChangeFolder() or Play() in flight was therefore left waiting for its
+own D-Bus timeout to expire, 25s by default, whenever the player went
+away. That happens on every AVRCP disconnect, since avrcp destroys the
+controller player from its disconnect path.
+
+Reply with org.bluez.Error.Failed instead.
+
+Answering after the g_dbus_unregister_interface() calls above is fine,
+as replies are matched by serial rather than by object path, so the
+unref site does not need to move.
+
+Assisted-by: Claude:claude-opus-5 valgrind
+
+Upstream-Status: Backport [https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=ede23fb50e41]
+---
+ profiles/audio/player.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/profiles/audio/player.c b/profiles/audio/player.c
+index 568c70770..fa3810a7f 100644
+--- a/profiles/audio/player.c
++++ b/profiles/audio/player.c
+@@ -1257,8 +1257,11 @@ void media_player_destroy(struct media_player *mp)
+ 						mp->path,
+ 						MEDIA_FOLDER_INTERFACE);
+ 
+-	if (mp->msg)
++	if (mp->msg) {
++		g_dbus_send_message(btd_get_dbus_connection(),
++				btd_error_failed(mp->msg, "Player removed"));
+ 		dbus_message_unref(mp->msg);
++	}
+ 
+ 	g_slist_free_full(mp->pending, g_free);
+ 	g_slist_free_full(mp->folders, media_folder_destroy);
+-- 
+2.54.0 (Apple Git-157)
+
+
