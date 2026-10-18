@@ -25,16 +25,12 @@ inherit flutter-app systemd
 
 APP_CONFIG = "flutter_cluster_dashboard_on_bg.toml"
 
-PUBSPEC_IGNORE_LOCKFILE = "1"
-
 SYSTEMD_SERVICE:${PN} = "flutter-cluster-dashboard.service"
 
 do_install:append() {
     install -D -m 0644 ${UNPACKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
 
     install -D -m 0644 ${UNPACKDIR}/kvm.conf ${D}${systemd_system_unitdir}/${BPN}.service.d/kvm.conf
-
-    install -D -m 0644 ${UNPACKDIR}/${APP_CONFIG} ${D}${datadir}/flutter/${BPN}.json
 
     install -d ${D}${sysconfdir}/xdg/AGL/flutter-cluster-dashboard
     install -m 0644 ${UNPACKDIR}/kuksa.toml ${D}${sysconfdir}/xdg/AGL/flutter-cluster-dashboard/
