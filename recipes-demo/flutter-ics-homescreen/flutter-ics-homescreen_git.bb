@@ -19,15 +19,13 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/flutter-ics-homescreen;p
            file://flutter-ics-homescreen.toml.kvm-tradeshow \
            file://kvm.conf \
 "
-SRCREV = "2ce5a77cec61aed021f54100eeb21d98a2c30e84"
+SRCREV = "a899f9c4bbedb485bda82fd17a16588368ec0125"
 
 PUBSPEC_APPNAME = "flutter_ics_homescreen"
 
-inherit flutter-app-plugins systemd update-alternatives
+inherit flutter-app-native systemd update-alternatives
 
 APP_CONFIG = "ics-homescreen.toml"
-
-PUBSPEC_IGNORE_LOCKFILE = "1"
 
 SYSTEMD_SERVICE:${PN} = "flutter-ics-homescreen.service"
 
@@ -44,8 +42,6 @@ do_install:append() {
     install -D -m 0644 ${UNPACKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
 
     install -D -m 0644 ${UNPACKDIR}/kvm.conf ${D}${systemd_system_unitdir}/${BPN}.service.d/kvm.conf
-
-    install -D -m 0644 ${UNPACKDIR}/${APP_CONFIG} ${D}${datadir}/flutter/${BPN}.json
 
     install -d ${D}${sysconfdir}/xdg/AGL
     install -m 0644 ${UNPACKDIR}/flutter-ics-homescreen.toml.kvm-tradeshow ${D}${sysconfdir}/xdg/AGL/
@@ -66,6 +62,7 @@ FILES:${PN} += "${datadir} ${sysconfdir}/xdg/AGL ${sysconfdir}/default"
 
 RDEPENDS:${PN} += " \
     flutter-auto \
+    rive-text \
     agl-flutter-env \
     applaunchd \
 "
@@ -83,5 +80,3 @@ RPROVIDES:${PN}-conf-kvm-tradeshow = "flutter-ics-homescreen.toml"
 ALTERNATIVE:${PN}-conf-kvm-tradeshow = "flutter-ics-homescreen.toml"
 ALTERNATIVE_TARGET_${PN}-conf-kvm-tradeshow = "${sysconfdir}/xdg/AGL/flutter-ics-homescreen.toml.kvm-tradeshow"
 ALTERNATIVE_PRIORITY_${PN}-conf-kvm-tradeshow = "11"
-
-do_compile[network] = "1"
