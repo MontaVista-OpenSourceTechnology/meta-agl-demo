@@ -1,5 +1,4 @@
 [global]
-app_id = 'flutter-cluster-dashboard'
 disable_cursor = true
 #debug_backend = false
 

@@ -1,5 +1,4 @@
 [global]
-app_id = 'flutter-ics-homescreen'
 disable_cursor = true
 #debug_backend = false
 
