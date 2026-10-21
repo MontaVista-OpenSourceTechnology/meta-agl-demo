@@ -19,7 +19,7 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/flutter-ics-homescreen;p
            file://flutter-ics-homescreen.toml.kvm-tradeshow \
            file://kvm.conf \
 "
-SRCREV = "a899f9c4bbedb485bda82fd17a16588368ec0125"
+SRCREV = "6fd97240b12b29dbc73622bb2a218c1779a7d817"
 
 PUBSPEC_APPNAME = "flutter_ics_homescreen"
 
