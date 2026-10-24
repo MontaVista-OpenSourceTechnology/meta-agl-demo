@@ -16,3 +16,5 @@ AGL_APPS_INSTALL += " \
     ondemandnavi \
     ${MUSICDATA} \
 "
+
+AGL_APPS_INSTALL:append:raspberrypi5 = " flutter-surround-view"
