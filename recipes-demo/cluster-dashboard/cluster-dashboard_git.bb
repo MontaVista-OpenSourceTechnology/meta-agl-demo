@@ -27,7 +27,7 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/agl-cluster-demo-dashboa
            file://kuksa.toml \
            file://cluster-dashboard.token \
 "
-SRCREV  = "8fc7bac3725097d26bbf7ccb710ec114f99db222"
+SRCREV  = "075180064112c536f0d63a914c2d777f749665e6"
 
 inherit meson meson_qt6_path pkgconfig systemd
 
