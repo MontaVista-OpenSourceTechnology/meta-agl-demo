@@ -9,6 +9,9 @@ SRC_URI = " \
     git://github.com/signal-slot/agl-slint-cluster.git;protocol=https;branch=main \
     file://agl-slint-cluster.service \
 "
+SRC_URI:append:sparrow-hawk = " \
+    file://glutin-egl-dlsym-fallback.patch;patchdir=${CARGO_VENDORING_DIRECTORY}/glutin-0.32.3 \
+"
 SRCREV = "37e37108d94a577e9f9beb85fe4c1901d0cc9507"
 
 inherit cargo cargo-update-recipe-crates systemd agl-slint

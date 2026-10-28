@@ -1,0 +1,58 @@
+Fall back to dlsym for core GL entry points when eglGetProcAddress returns null.
+
+EGL < 1.5 (e.g. Imagination PowerVR, which reports EGL 1.4) is not required to
+return core client-API functions from eglGetProcAddress, so Skia/femtovg GL init
+fails and Slint drops to software rendering. Resolve them from libGLESv2 instead,
+as SDL/GLFW/libepoxy/Qt do.
+
+Upstream-Status: Pending
+Signed-off-by: Tasuku Suzuki <tasuku.suzuki@signal-slot.co.jp>
+---
+--- a/src/api/egl/mod.rs	2006-07-24 10:21:28.000000000 +0900
++++ b/src/api/egl/mod.rs	2026-10-21 11:28:05.802435673 +0900
+@@ -41,6 +41,20 @@
+     unsafe { SymWrapper::new(&paths).map(Egl).ok() }
+ });
+ 
++// GL client library, used to resolve core client-API entry points that
++// eglGetProcAddress is not required to return on EGL < 1.5 (e.g. Imagination
++// PowerVR reports EGL 1.4 and returns null for glCreateShader). Mirrors what
++// SDL/GLFW/libepoxy/Qt do.
++#[cfg(not(windows))]
++pub(crate) static GL_LIB: Lazy<Option<Library>> = Lazy::new(|| {
++    for path in ["libGLESv2.so.2", "libGLESv2.so", "libGL.so.1", "libGL.so"] {
++        if let Ok(lib) = unsafe { Library::new(path) } {
++            return Some(lib);
++        }
++    }
++    None
++});
++
+ type EglGetProcAddress = unsafe extern "system" fn(*const ffi::c_void) -> *const ffi::c_void;
+ static EGL_GET_PROC_ADDRESS: OnceCell<libloading_os::Symbol<EglGetProcAddress>> = OnceCell::new();
+ 
+--- a/src/api/egl/display.rs	2006-07-24 10:21:28.000000000 +0900
++++ b/src/api/egl/display.rs	2026-10-21 11:28:05.802612427 +0900
+@@ -604,7 +604,21 @@
+     }
+ 
+     fn get_proc_address(&self, addr: &CStr) -> *const ffi::c_void {
+-        unsafe { self.inner.egl.GetProcAddress(addr.as_ptr()) as *const _ }
++        let proc = unsafe { self.inner.egl.GetProcAddress(addr.as_ptr()) as *const ffi::c_void };
++        if !proc.is_null() {
++            return proc;
++        }
++        // eglGetProcAddress is not required to return core client-API functions
++        // on EGL < 1.5 (e.g. Imagination PowerVR reports EGL 1.4 and returns
++        // null for glCreateShader). Fall back to the GL library, as
++        // SDL/GLFW/libepoxy/Qt do.
++        #[cfg(not(windows))]
++        if let Some(lib) = super::GL_LIB.as_ref() {
++            if let Ok(sym) = unsafe { lib.get::<*const ffi::c_void>(addr.to_bytes_with_nul()) } {
++                return unsafe { *sym };
++            }
++        }
++        std::ptr::null()
+     }
+ 
+     fn version_string(&self) -> String {
