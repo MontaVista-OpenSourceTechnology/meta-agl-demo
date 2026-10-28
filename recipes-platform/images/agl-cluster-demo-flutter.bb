@@ -18,7 +18,7 @@ AGL_DEVEL_INSTALL = " \
 
 # Generic
 IMAGE_INSTALL += "\
-    weston-ini-conf-landscape-flutter \
+    weston-ini-conf-landscape \
     \
     packagegroup-agl-networking \
     cluster-receiver \
