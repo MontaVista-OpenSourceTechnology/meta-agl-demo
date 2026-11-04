@@ -53,7 +53,8 @@ QEMU_SDL_GL_FLAVOR="${QEMU_SDL_GL_FLAVOR:-es}"
 ${TASKSET_CMD} \
 qemu-system-${arch} \
 	-enable-kvm \
-	-machine virt,gic-version=max,iommu=smmuv3 \
+	-machine virt,gic-version=max,iommu=smmuv3,memory-backend=mem \
+	-object memory-backend-file,id=mem,size=${QEMU_MEM_OPT#-m },mem-path=/dev/shm,share=on \
 	-cpu host \
 	${QEMU_SMP_OPT} \
 	${QEMU_MEM_OPT} \
