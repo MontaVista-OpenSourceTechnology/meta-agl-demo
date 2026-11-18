@@ -46,4 +46,5 @@ RDEPENDS:${PN}:append:rcar-gen3 = " \
 
 # For R-Car Gen4
 RDEPENDS:${PN}:append:rcar-gen4 = " \
+    gles-user-module \
 "

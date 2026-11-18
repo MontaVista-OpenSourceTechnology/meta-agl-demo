@@ -2,6 +2,8 @@
 Description=Slint demo Cluster
 
 [Service]
+EnvironmentFile=/etc/default/slint-cluster
+EnvironmentFile=-/etc/default/slint-drm-lease
 ExecStart=/usr/bin/agl-slint-cluster
 Restart=always
 RestartSec=1

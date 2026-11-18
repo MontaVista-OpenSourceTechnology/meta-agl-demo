@@ -1,0 +1,2 @@
+DLM_RUNTIME_PATH=/var/display/drm-lease-manager
+SLINT_DRM_LEASE_NAME=lease

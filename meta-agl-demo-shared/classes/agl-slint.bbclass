@@ -3,6 +3,7 @@ DEPENDS = " \
     fontconfig libxkbcommon libdrm virtual/egl virtual/libgbm virtual/libgles2 \
     ca-certificates-native curl-native ninja-native \
     seatd udev libinput \
+    ${@bb.utils.contains('AGL_FEATURES', 'agl-drm-lease', 'drm-lease-manager', '', d)} \
     "
 
 inherit pkgconfig features_check
@@ -10,7 +11,12 @@ inherit pkgconfig features_check
 REQUIRED_DISTRO_FEATURES:append =  " opengl"
 
 # Set Slint options
-CARGO_BUILD_FLAGS += "--features slint/backend-linuxkms,slint/renderer-skia"
+SLINT_CARGO_BUILD_FLAGS ??= "--features slint/backend-linuxkms,slint/renderer-skia"
+SLINT_CARGO_BUILD_FLAGS_DRMLEASE ??= "--features slint/backend-linuxkms,slint/backend-linuxkms-libdlmclient,slint/renderer-skia"
+
+CARGO_BUILD_FLAGS += " \
+    ${@bb.utils.contains('AGL_FEATURES', 'agl-drm-lease', '${SLINT_CARGO_BUILD_FLAGS_DRMLEASE}', '${SLINT_CARGO_BUILD_FLAGS}', d)} \
+    "
 
 # Avoid skia build issue.
 TOOLCHAIN = "clang"
