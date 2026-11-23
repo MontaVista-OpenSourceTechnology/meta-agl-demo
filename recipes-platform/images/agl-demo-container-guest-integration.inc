@@ -16,3 +16,9 @@ ROOTFS_POSTPROCESS_COMMAND += " \
     ${@bb.utils.contains('AGL_FEATURES', 'agl-container-guest-demo', 'fixupfstab_for_container_guest_images;', '', d)} \
     ${@bb.utils.contains('AGL_FEATURES', 'agl-container-guest-demo', 'rmboot_for_container_guest_images;', '', d)} \
 "
+
+IMAGE_VOLUME_LABEL ??= "guest-ivi"
+IMAGE_VOLUME_LABEL:pn-agl-ivi-demo-flutter ?= "flutter-ivi"
+IMAGE_VOLUME_LABEL:pn-agl-ivi-demo-qt ?= "qt-ivi"
+
+EXTRA_IMAGECMD:append = " -L ${IMAGE_VOLUME_LABEL}"
