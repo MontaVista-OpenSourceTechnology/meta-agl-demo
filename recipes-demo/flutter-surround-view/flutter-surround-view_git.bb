@@ -3,8 +3,8 @@ HOMEPAGE = "https://github.com/Abdulrahman-Yasser/flutter-surround-view"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
-SRC_URI = "git://github.com/Abdulrahman-Yasser/flutter-surround-view.git;protocol=https;branch=main"
-SRCREV = "9fc2496729fb21e1b2613a9e6066f27f4d525d6f"
+SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/flutter-surround-view;protocol=https;branch=${AGL_BRANCH}"
+SRCREV = "7d89e95c2a46ccc49df79caccfb8a83afba360ce"
 
 inherit flutter-app-native agl-app
 
