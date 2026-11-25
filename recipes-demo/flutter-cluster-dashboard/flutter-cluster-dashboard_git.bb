@@ -17,7 +17,7 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/flutter-instrument-clust
 "
 
 PV = "1.0+git${SRCPV}"
-SRCREV = "6c204692c9ee5ff2c1f20134d55223d2312c9be1"
+SRCREV = "d1b7d6fbbc9241bc80818b3d10f8c49ba00cbfc3"
 
 PUBSPEC_APPNAME = "flutter_cluster_dashboard"
 
