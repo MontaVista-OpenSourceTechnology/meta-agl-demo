@@ -19,13 +19,24 @@ SRC_URI = "git://gerrit.automotivelinux.org/gerrit/apps/flutter-ics-homescreen;p
            file://flutter-ics-homescreen.toml.kvm-tradeshow \
            file://kvm.conf \
 "
-SRCREV = "6fd97240b12b29dbc73622bb2a218c1779a7d817"
+SRCREV = "6f599329e7690abddda08aecdfcb563d6e984e2f"
 
 PUBSPEC_APPNAME = "flutter_ics_homescreen"
 
 inherit flutter-app-native systemd update-alternatives
 
 APP_CONFIG = "ics-homescreen.toml"
+
+# Need to indicate that a vendored build of libsdbus-c++ is shipped
+# to avoid a packaging error due to conflicting with the system copy.
+# The vendored build is done with clang to match the bluez* plugins,
+# a requirement that effectively comes from upstream.
+# It is likely this cannot be avoided without a global switch to
+# TOOLCHAIN = "clang", which is not really feasible.
+# libbluez_nc.so is included as well to handle the perhaps unlikely
+# chance that more than one Flutter app is built that includes the
+# plugin.
+PRIVATE_LIBS = "libsdbus-c++.so.2 libbluez_nc.so"
 
 SYSTEMD_SERVICE:${PN} = "flutter-ics-homescreen.service"
 
